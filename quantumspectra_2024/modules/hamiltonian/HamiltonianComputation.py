@@ -8,7 +8,7 @@ import itertools
 def diagonalize_matrix(
     matrix: Float[Array, "num_states*block_size num_states*block_size"]
 ) -> tuple[
-    Float[Array, "num_states"],
+    Float[Array, "num_states*block_size"],
     Float[Array, "num_states*block_size num_states*block_size"],
 ]:
     """Diagonalizes a matrix and returns the eigenvalues and eigenvectors.
