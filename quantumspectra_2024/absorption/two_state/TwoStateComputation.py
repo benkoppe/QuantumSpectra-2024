@@ -5,6 +5,33 @@ from jaxtyping import Float, Int, Array, Scalar
 from quantumspectra_2024.modules.hamiltonian import HamiltonianModel
 
 
+def broaden_peaks(
+    sample_points: Float[Array, "num_points"],
+    peak_energies: Float[Array, "num_peaks"],
+    peak_intensities: Float[Array, "num_peaks"],
+    distribution_broadening: Float[Scalar, ""],
+) -> Float[Array, "num_points"]:
+    gaussians = compute_gaussians(
+        sample_points=sample_points,
+        peak_energies=peak_energies,
+        distribution_broadening=distribution_broadening,
+    )
+    return jnp.sum(peak_intensities * gaussians, axis=1)
+
+
+@jax.jit
+def compute_gaussians(
+    sample_points: Float[Array, "num_points"],
+    peak_energies: Float[Array, "num_peaks"],
+    distribution_broadening: Float[Scalar, ""],
+) -> Float[Array, "num_points num_peaks"]:
+    return (1.0 / (jnp.sqrt(jnp.pi) * distribution_broadening)) * jnp.exp(
+        -jnp.power(
+            (sample_points[:, jnp.newaxis] - peak_energies) / distribution_broadening, 2
+        )
+    )
+
+
 def compute_peaks(
     eigenvalues: Float[Array, "matrix_size"],
     eigenvectors: Float[Array, "matrix_size matrix_size"],
