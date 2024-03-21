@@ -65,4 +65,17 @@ def filter_peaks(
     peak_intensities: Float[Array, "matrix_size/2 matrix_size"],
     first_eigenvector_range: Int[Scalar, ""],
 ):
-    pass
+    # get upper-triangular indices starting from the first off-diagonal
+    triu_indices = jnp.triu_indices(first_eigenvector_range, k=1, m=len(peak_energies))
+
+    # define the filtering mask
+    mask = ((peak_intensities >= 0) | (peak_energies >= 0))[triu_indices]
+
+    # filter energies and intensities
+    filtered_peak_energies = peak_energies[triu_indices][mask]
+    filtered_peak_intensities = peak_intensities[triu_indices][mask]
+
+    # this filters the arrays such that only unique combinations of energy levels are considered, and
+    # such that the intensities and energies are non-negative
+
+    return filtered_peak_energies, filtered_peak_intensities
