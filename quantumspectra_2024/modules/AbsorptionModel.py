@@ -1,4 +1,3 @@
-import jax
 import jax_dataclasses as jdc
 
 from abc import ABC
