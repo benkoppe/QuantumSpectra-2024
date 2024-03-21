@@ -58,3 +58,11 @@ def compute_peak_probability_scalars(
 
     # return normalized exponential of scaled differences
     return exponentials / jnp.sum(exponentials)
+
+
+def filter_peaks(
+    peak_energies: Float[Array, "matrix_size/2 matrix_size"],
+    peak_intensities: Float[Array, "matrix_size/2 matrix_size"],
+    first_eigenvector_range: Int[Scalar, ""],
+):
+    pass
