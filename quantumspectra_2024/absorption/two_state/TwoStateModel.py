@@ -1,7 +1,9 @@
 import jax_dataclasses as jdc
 from jaxtyping import Float, Int, Array, Scalar
 
-from quantumspectra_2024.modules.AbsorptionModel import AbsorptionModel as Model
+from quantumspectra_2024.modules.absorption.AbsorptionModel import (
+    AbsorptionModel as Model,
+)
 
 
 @jdc.pytree_dataclass
