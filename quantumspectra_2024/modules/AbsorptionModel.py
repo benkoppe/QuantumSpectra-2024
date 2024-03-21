@@ -1,4 +1,5 @@
 import jax_dataclasses as jdc
+from jaxtyping import Float, Int, Scalar
 
 from abc import ABC
 
@@ -7,6 +8,6 @@ from abc import ABC
 class AbsorptionModel(ABC):
     """Represents a model for generating absorption spectra"""
 
-    start_energy: jdc.Static[float] = 0.0
-    end_energy: jdc.Static[float] = 20_000.0
-    num_points: jdc.Static[int] = 2_001
+    start_energy: jdc.Static[Float[Scalar, ""]] = 0.0
+    end_energy: jdc.Static[Float[Scalar, ""]] = 20_000.0
+    num_points: jdc.Static[Int[Scalar, ""]] = 2_001
