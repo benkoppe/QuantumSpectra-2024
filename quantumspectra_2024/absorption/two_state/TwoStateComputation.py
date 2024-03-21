@@ -5,6 +5,48 @@ from jaxtyping import Float, Int, Array, Scalar
 from quantumspectra_2024.modules.hamiltonian import HamiltonianModel
 
 
+def compute_peaks(
+    eigenvalues: Float[Array, "matrix_size"],
+    eigenvectors: Float[Array, "matrix_size matrix_size"],
+    transfer_integral: Float[Scalar, ""],
+    temperature_kelvin: Float[Scalar, ""],
+) -> Float[Array, "num_peaks num_peaks"]:
+    # compute all possible peak energies and intensities
+    energies = compute_peak_energies(eigenvalues=eigenvalues)
+    intensities = compute_peak_intensities(
+        eigenvectors=eigenvectors, transfer_integral=transfer_integral
+    )
+
+    # compute temperature to wavenumbers
+    temperature_wavenumbers = temperature_kelvin * 0.695028
+
+    # define range of eigenvectors used in pair combinations
+    first_eigenvector_range = jax.lax.cond(
+        (temperature_wavenumbers == 0),
+        lambda: 1,
+        lambda: min(50, len(eigenvalues)),
+    )
+
+    # scale intensities by probability scalars if temperature is not 0
+    scaled_intensities = jax.lax.cond(
+        (temperature_wavenumbers == 0),
+        lambda: intensities,
+        lambda: intensities
+        * compute_peak_probability_scalars(
+            eigenvalues=eigenvalues, temperature_wavenumbers=temperature_wavenumbers
+        )[:, None],
+    )
+
+    # filter computed intensities and energies to retrieve pair combinations between first_eigenvector_range and all other elevated energy levels
+    filtered_energies, filtered_intensities = filter_peaks(
+        peak_energies=energies,
+        peak_intensities=scaled_intensities,
+        first_eigenvector_range=first_eigenvector_range,
+    )
+
+    return filtered_energies, filtered_intensities
+
+
 def compute_peak_energies(
     eigenvalues: Float[Array, "matrix_size"],
 ) -> Float[Array, "matrix_size/2 matrix_size"]:
@@ -75,7 +117,7 @@ def filter_peaks(
     filtered_peak_energies = peak_energies[triu_indices][mask]
     filtered_peak_intensities = peak_intensities[triu_indices][mask]
 
-    # this filters the arrays such that only unique combinations of energy levels are considered, and
+    # this filters the arrays such that only unique pair combinations are considered, and
     # such that the intensities and energies are non-negative
 
     return filtered_peak_energies, filtered_peak_intensities
