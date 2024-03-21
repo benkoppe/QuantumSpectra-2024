@@ -21,8 +21,8 @@ class HamiltonianModel:
     state_mode_couplings: Float[Array, "num_states num_modes"]
 
     def get_diagonalization(self) -> tuple[
-        Float[Array, "num_states*block_size"],
-        Float[Array, "num_states*block_size num_states*block_size"],
+        Float[Array, "matrix_size"],
+        Float[Array, "matrix_size matrix_size"],
     ]:
         # build matrix
         matrix = build_matrix(

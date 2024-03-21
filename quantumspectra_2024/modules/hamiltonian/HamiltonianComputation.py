@@ -5,19 +5,17 @@ from jaxtyping import Float, Int, Bool, Array, Scalar
 import itertools
 
 
-def diagonalize_matrix(
-    matrix: Float[Array, "num_states*block_size num_states*block_size"]
-) -> tuple[
-    Float[Array, "num_states*block_size"],
-    Float[Array, "num_states*block_size num_states*block_size"],
+def diagonalize_matrix(matrix: Float[Array, "matrix_size matrix_size"]) -> tuple[
+    Float[Array, "matrix_size"],
+    Float[Array, "matrix_size matrix_size"],
 ]:
     """Diagonalizes a matrix and returns the eigenvalues and eigenvectors.
 
     Args:
-        matrix (Float[Array, "num_states*block_size num_states*block_size"]): a matrix to diagonalize
+        matrix (Float[Array, "matrix_size matrix_size"]): a matrix to diagonalize
 
     Returns:
-        tuple[Float[Array, "num_states"], Float[Array, "num_states*block_size num_states*block_size"]]: a tuple containing the eigenvalues and eigenvectors
+        tuple[Float[Array, "matrix_size"], Float[Array, "matrix_size matrix_size"]]: a tuple containing the eigenvalues and eigenvectors
     """
     eigenvalues, eigenvectors = jnp.linalg.eigh(matrix)
     return eigenvalues, eigenvectors
@@ -30,7 +28,7 @@ def build_matrix(
     mode_localities: Bool[Array, "num_modes"],
     mode_frequencies: Float[Array, "num_modes"],
     state_mode_couplings: Float[Array, "num_states num_modes"],
-) -> Float[Array, "num_states*block_size num_states*block_size"]:
+) -> Float[Array, "matrix_size matrix_size"]:
     num_states = len(state_energies)
 
     # build the matrix, state by state
