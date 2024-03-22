@@ -1,5 +1,3 @@
-from typing import Type
-
 from quantumspectra_2024.modules.Config import (
     parse_config,
     initialize_absorption_from_config,
