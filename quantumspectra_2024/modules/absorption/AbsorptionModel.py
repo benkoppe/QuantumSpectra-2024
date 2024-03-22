@@ -6,7 +6,7 @@ from abc import ABC, abstractmethod
 from quantumspectra_2024.modules.absorption.AbsorptionSpectrum import AbsorptionSpectrum
 
 
-@jdc.pytree_dataclass
+@jdc.pytree_dataclass(kw_only=True)
 class AbsorptionModel(ABC):
     """Represents a model for generating absorption spectra"""
 

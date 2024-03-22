@@ -12,7 +12,7 @@ from quantumspectra_2024.absorption.two_state.TwoStateComputation import (
 )
 
 
-@jdc.pytree_dataclass
+@jdc.pytree_dataclass(kw_only=True)
 class TwoStateModel(Model):
     """A two-state quantum mechanical model for absorption spectra."""
 

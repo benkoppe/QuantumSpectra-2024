@@ -7,7 +7,7 @@ from quantumspectra_2024.modules.hamiltonian.HamiltonianComputation import (
 )
 
 
-@jdc.pytree_dataclass
+@jdc.pytree_dataclass(kw_only=True)
 class HamiltonianModel:
     """A hamiltonian model for a quantum system"""
 
