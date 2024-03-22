@@ -25,7 +25,15 @@ class HamiltonianModel:
         Float[Array, "matrix_size matrix_size"],
     ]:
         # build matrix
-        matrix = build_matrix(
+        matrix = self.get_matrix()
+
+        # diagonalize matrix
+        eigenvalues, eigenvectors = diagonalize_matrix(matrix)
+
+        return eigenvalues, eigenvectors
+
+    def get_matrix(self) -> Float[Array, "matrix_size matrix_size"]:
+        return build_matrix(
             basis_sets=self.basis_sets,
             state_energies=self.state_energies,
             transfer_integral=self.transfer_integral,
@@ -33,8 +41,3 @@ class HamiltonianModel:
             mode_frequencies=self.mode_frequencies,
             state_mode_couplings=self.state_mode_couplings,
         )
-
-        # diagonalize matrix
-        eigenvalues, eigenvectors = diagonalize_matrix(matrix)
-
-        return eigenvalues, eigenvectors
