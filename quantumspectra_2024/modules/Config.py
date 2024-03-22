@@ -1,8 +1,9 @@
-from typing import Type
+from typing import Type, Callable
+from pathlib import Path
 from argparse import ArgumentParser
 import tomllib
 
-from quantumspectra_2024.modules.absorption import AbsorptionModel
+from quantumspectra_2024.modules.absorption import AbsorptionModel, AbsorptionSpectrum
 
 CONFIG_ARG_NAME = "config_path"
 CONFIG_ARG_HELP = "Path to the configuration file."
@@ -12,6 +13,42 @@ OUT_REQUIRED_KEYS = ["filename", "data", "plot", "overwrite"]
 
 MODEL_CONFIG_NAME = "model"
 MODEL_NAME_KEY = "name"
+
+
+def save_spectrum_from_config(config: dict, spectrum: AbsorptionSpectrum) -> None:
+    out_data = config[OUT_CONFIG_NAME]
+    overwrite = out_data["overwrite"]
+
+    if out_data["data"]:
+        # save absorption spectrum data
+        save_file(
+            filename=f"{out_data['filename']}.csv",
+            overwrite=overwrite,
+            save_func=lambda fname: spectrum.save_data(fname),
+        )
+
+    if out_data["plot"]:
+        # save absorption spectrum plot
+        save_file(
+            filename=f"{out_data['filename']}.png",
+            overwrite=overwrite,
+            save_func=lambda fname: spectrum.save_plot(fname),
+        )
+
+
+def save_file(filename: str, overwrite: bool, save_func: Callable[[str], None]) -> None:
+    file = Path(filename)
+
+    if not file.parent.exists():
+        raise ValueError(
+            f"Invalid save file: parent directory '{file.parent}' does not exist."
+        )
+    if file.exists() and not overwrite:
+        raise ValueError(
+            f"Save file '{file}' already exists and overwrite is set to False."
+        )
+
+    save_func(str(file))
 
 
 def initialize_absorption_from_config(

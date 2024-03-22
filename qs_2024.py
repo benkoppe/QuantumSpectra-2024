@@ -1,6 +1,7 @@
 from quantumspectra_2024.modules.Config import (
     parse_config,
     initialize_absorption_from_config,
+    save_spectrum_from_config,
 )
 from quantumspectra_2024.modules.absorption import AbsorptionModel, AbsorptionSpectrum
 
@@ -13,9 +14,13 @@ def main():
     str_to_model: dict = {
         "two_state": TwoStateModel,
     }
-    model: AbsorptionModel = initialize_absorption_from_config(config, str_to_model)
+    model: AbsorptionModel = initialize_absorption_from_config(
+        config=config, str_to_model=str_to_model
+    )
 
     spectrum: AbsorptionSpectrum = model.get_absorption()
+
+    save_spectrum_from_config(config=config, spectrum=spectrum)
 
 
 if __name__ == "__main__":
