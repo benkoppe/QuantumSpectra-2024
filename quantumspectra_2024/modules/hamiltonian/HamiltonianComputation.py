@@ -74,7 +74,7 @@ def build_local_state_block(
     state_mode_couplings: Float[Array, "num_modes num_states"],
 ) -> Float[Array, "block_size block_size"]:
     state_energy = state_energies[state_index]
-    mode_couplings = state_mode_couplings[state_index]
+    mode_couplings = state_mode_couplings[:, state_index]
 
     # calculate the state's diagonal values
     all_diagonal_values = calculate_state_local_diagonals(
