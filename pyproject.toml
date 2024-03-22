@@ -11,6 +11,7 @@ numpy = "^1.26.4"
 jax = "^0.4.25"
 jax-dataclasses = "^1.6.0"
 jaxtyping = "^0.2.28"
+matplotlib = "^3.8.3"
 
 
 [build-system]
