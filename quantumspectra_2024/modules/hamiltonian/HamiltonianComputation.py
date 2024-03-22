@@ -71,7 +71,7 @@ def build_local_state_block(
     basis_sets: Int[Array, "num_modes"],
     mode_localities: Bool[Array, "num_modes"],
     mode_frequencies: Float[Array, "num_modes"],
-    state_mode_couplings: float[Array, "num_states num_modes"],
+    state_mode_couplings: Float[Array, "num_states num_modes"],
 ) -> Float[Array, "block_size block_size"]:
     state_energy = state_energies[state_index]
     mode_couplings = state_mode_couplings[state_index]
@@ -107,7 +107,7 @@ def build_nonlocal_state_block(
     basis_sets: Int[Array, "num_modes"],
     mode_localities: Bool[Array, "num_modes"],
     mode_frequencies: Float[Array, "num_modes"],
-    state_mode_couplings: float[Array, "num_states num_modes"],
+    state_mode_couplings: Float[Array, "num_states num_modes"],
 ):
     mode_couplings = state_mode_couplings[state_index]
 
@@ -203,7 +203,7 @@ def build_state_block(
 def calculate_state_local_diagonals(
     state_energy: Float[Scalar, ""],
     mode_frequencies: Float[Array, "num_modes"],
-    mode_couplings: float[Array, "num_modes"],
+    mode_couplings: Float[Array, "num_modes"],
     basis_sets: Int[Array, "num_modes"],
 ) -> Float[Array, "block_size"]:
     all_diagonal_values = [
@@ -235,7 +235,7 @@ def calculate_state_offdiagonals(
     basis_sets: Int[Array, "num_modes"],
     mode_localities: Bool[Array, "num_modes"],
     mode_frequencies: Float[Array, "num_modes"],
-    mode_couplings: float[Array, "num_modes"],
+    mode_couplings: Float[Array, "num_modes"],
 ) -> tuple[Float[Array, "_"]]:
     all_mode_offdiagonal_values = tuple(
         (
@@ -261,7 +261,7 @@ def calculate_state_offdiagonals(
 def calculate_mode_local_diagonal_component(
     component_index: Int[Scalar, ""],
     mode_frequency: Float[Scalar, ""],
-    mode_coupling: float[Scalar, ""],
+    mode_coupling: Float[Scalar, ""],
 ) -> Float[Scalar, ""]:
     return mode_frequency * ((component_index + (1 / 2)) + (mode_coupling**2) / 2)
 
@@ -269,6 +269,6 @@ def calculate_mode_local_diagonal_component(
 def calculate_mode_offdiagonal_component(
     component_index: Int[Scalar, ""],
     mode_frequency: Float[Array, ""],
-    mode_coupling: float[Array, ""],
+    mode_coupling: Float[Array, ""],
 ) -> Float[Scalar, ""]:
     return mode_frequency * mode_coupling * jnp.sqrt((component_index + 1) / 2)
