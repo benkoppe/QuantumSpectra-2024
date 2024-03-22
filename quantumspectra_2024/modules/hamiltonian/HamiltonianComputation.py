@@ -27,7 +27,7 @@ def build_matrix(
     transfer_integral: Float[Scalar, ""],
     mode_localities: Bool[Array, "num_modes"],
     mode_frequencies: Float[Array, "num_modes"],
-    state_mode_couplings: Float[Array, "num_states num_modes"],
+    state_mode_couplings: Float[Array, "num_modes num_states"],
 ) -> Float[Array, "matrix_size matrix_size"]:
     num_states = len(state_energies)
 
@@ -71,7 +71,7 @@ def build_local_state_block(
     basis_sets: Int[Array, "num_modes"],
     mode_localities: Bool[Array, "num_modes"],
     mode_frequencies: Float[Array, "num_modes"],
-    state_mode_couplings: Float[Array, "num_states num_modes"],
+    state_mode_couplings: Float[Array, "num_modes num_states"],
 ) -> Float[Array, "block_size block_size"]:
     state_energy = state_energies[state_index]
     mode_couplings = state_mode_couplings[state_index]
@@ -107,9 +107,9 @@ def build_nonlocal_state_block(
     basis_sets: Int[Array, "num_modes"],
     mode_localities: Bool[Array, "num_modes"],
     mode_frequencies: Float[Array, "num_modes"],
-    state_mode_couplings: Float[Array, "num_states num_modes"],
+    state_mode_couplings: Float[Array, "num_modes num_states"],
 ):
-    mode_couplings = state_mode_couplings[state_index]
+    mode_couplings = state_mode_couplings[:, state_index]
 
     # calculate the state's diagonal values
     all_diagonal_values = jnp.repeat(transfer_integral, jnp.prod(jnp.array(basis_sets)))

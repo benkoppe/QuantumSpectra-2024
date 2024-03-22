@@ -18,7 +18,7 @@ class HamiltonianModel:
 
     mode_localities: Bool[Array, "num_modes"]
     mode_frequencies: Float[Array, "num_modes"]
-    state_mode_couplings: Float[Array, "num_states num_modes"]
+    state_mode_couplings: Float[Array, "num_modes num_states"]
 
     def get_diagonalization(self) -> tuple[
         Float[Array, "matrix_size"],
