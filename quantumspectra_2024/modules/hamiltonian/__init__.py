@@ -1,1 +1,1 @@
-from HamiltonianModel import HamiltonianModel
+from .HamiltonianModel import HamiltonianModel

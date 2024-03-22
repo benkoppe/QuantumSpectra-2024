@@ -1,2 +1,2 @@
-from AbsorptionModel import AbsorptionModel
-from AbsorptionSpectrum import AbsorptionSpectrum
+from .AbsorptionModel import AbsorptionModel
+from .AbsorptionSpectrum import AbsorptionSpectrum
