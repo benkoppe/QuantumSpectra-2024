@@ -20,11 +20,10 @@ class TwoStateModel(Model):
     temperature_kelvin: Float[Scalar, ""]
     broadening: Float[Scalar, ""]
 
-    basis_sets: jdc.Static[Int[Array, "2"]]
-
     transfer_integral: Float[Scalar, ""]
     energy_gap: Float[Scalar, ""]
 
+    mode_basis_sets: jdc.Static[Int[Array, "num_modes"]]
     mode_frequencies: Float[Array, "num_modes"]
     mode_couplings: Float[Array, "num_modes"]
 
@@ -65,9 +64,9 @@ class TwoStateModel(Model):
 
     def get_hamiltonian(self) -> HamiltonianModel:
         return HamiltonianModel(
-            basis_sets=self.basis_sets,
             transfer_integral=self.transfer_integral,
             state_energies=jnp.array([0.0, self.energy_gap]),
+            mode_basis_sets=self.mode_basis_sets,
             mode_localities=jnp.array([True, True]),
             mode_frequencies=self.mode_frequencies,
             state_mode_couplings=jnp.array(

@@ -11,11 +11,10 @@ from quantumspectra_2024.modules.hamiltonian.HamiltonianComputation import (
 class HamiltonianModel:
     """A hamiltonian model for a quantum system"""
 
-    basis_sets: jdc.Static[Int[Array, "num_modes"]]
-
     transfer_integral: Float[Scalar, ""]
     state_energies: Float[Array, "num_states"]
 
+    mode_basis_sets: jdc.Static[Int[Array, "num_modes"]]
     mode_localities: Bool[Array, "num_modes"]
     mode_frequencies: Float[Array, "num_modes"]
     state_mode_couplings: Float[Array, "num_modes num_states"]
@@ -34,7 +33,7 @@ class HamiltonianModel:
 
     def get_matrix(self) -> Float[Array, "matrix_size matrix_size"]:
         return build_matrix(
-            basis_sets=self.basis_sets,
+            mode_basis_sets=self.mode_basis_sets,
             state_energies=self.state_energies,
             transfer_integral=self.transfer_integral,
             mode_localities=self.mode_localities,
