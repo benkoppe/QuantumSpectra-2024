@@ -69,7 +69,7 @@ class TwoStateModel(Model):
             mode_basis_sets=self.mode_basis_sets,
             mode_localities=jnp.array([True, True]),
             mode_frequencies=self.mode_frequencies,
-            state_mode_couplings=jnp.array(
+            mode_state_couplings=jnp.array(
                 [[0.0, mode_coupling] for mode_coupling in self.mode_couplings]
             ),
         )
