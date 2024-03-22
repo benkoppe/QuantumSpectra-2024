@@ -6,6 +6,7 @@ from quantumspectra_2024.modules.absorption import (
     AbsorptionModel as Model,
     AbsorptionSpectrum,
 )
+from quantumspectra_2024.modules.hamiltonian import HamiltonianModel
 from quantumspectra_2024.absorption.two_state.TwoStateComputation import (
     compute_peaks,
     broaden_peaks,
@@ -60,4 +61,16 @@ class TwoStateModel(Model):
         return AbsorptionSpectrum(
             energies=sample_points,
             intensities=spectrum,
+        )
+
+    def get_hamiltonian(self) -> HamiltonianModel:
+        return HamiltonianModel(
+            basis_sets=self.basis_sets,
+            transfer_integral=self.transfer_integral,
+            state_energies=jnp.array([0.0, self.energy_gap]),
+            mode_localities=jnp.array([True, True]),
+            mode_frequencies=self.mode_frequencies,
+            state_mode_couplings=jnp.array(
+                [[0.0, mode_coupling] for mode_coupling in self.mode_couplings]
+            ),
         )
