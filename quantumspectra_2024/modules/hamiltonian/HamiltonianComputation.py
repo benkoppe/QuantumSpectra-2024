@@ -188,7 +188,7 @@ def build_state_block(
         )
 
         # create a new block by repeating the previous block to match current basis set size
-        new_block = jax.scipy.linalg.block_diag(*[block] * mode_basis_set)
+        new_block = jax.scipy.linalg.block_diag(*[block for _ in range(mode_basis_set)])
 
         # redefines the block by combining the new block with the new offdiagonal values
         block = (
