@@ -66,9 +66,9 @@ class TwoStateModel(Model):
         return HamiltonianModel(
             transfer_integral=self.transfer_integral,
             state_energies=jnp.array([0.0, self.energy_gap]),
-            mode_basis_sets=self.mode_basis_sets,
+            mode_basis_sets=jnp.array(self.mode_basis_sets),
             mode_localities=jnp.array([True, True]),
-            mode_frequencies=self.mode_frequencies,
+            mode_frequencies=jnp.array(self.mode_frequencies),
             mode_state_couplings=jnp.array(
                 [[0.0, mode_coupling] for mode_coupling in self.mode_couplings]
             ),
