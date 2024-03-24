@@ -2,8 +2,6 @@ import jax
 import jax.numpy as jnp
 from jaxtyping import Float, Int, Array, Scalar
 
-from quantumspectra_2024.modules.hamiltonian import HamiltonianModel
-
 
 def broaden_peaks(
     sample_points: Float[Array, "num_points"],
