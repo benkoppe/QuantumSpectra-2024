@@ -2,8 +2,6 @@ import jax
 import jax.numpy as jnp
 from jaxtyping import Float, Int, Bool, Array, Scalar
 
-import itertools
-
 
 def diagonalize_matrix(matrix: Float[Array, "matrix_size matrix_size"]) -> tuple[
     Float[Array, "matrix_size"],
@@ -208,28 +206,26 @@ def calculate_state_local_diagonals(
     mode_couplings: Float[Array, "num_modes"],
     mode_basis_sets: Int[Array, "num_modes"],
 ) -> Float[Array, "block_size"]:
-    all_diagonal_values = [
-        state_energy
-        + jnp.sum(
-            jnp.array(
-                [
-                    calculate_mode_local_diagonal_component(
-                        component_index=component_index,
-                        mode_frequency=mode_frequency,
-                        mode_coupling=mode_coupling,
-                    )
-                    for component_index, mode_frequency, mode_coupling in zip(
-                        mode_component_indices, mode_frequencies, mode_couplings
-                    )
-                ]
-            )
+    parallelized_contribution_func = jax.vmap(
+        calculate_mode_local_diagonal_component, in_axes=(0, None, None)
+    )
+
+    mode_diagonal_contributions = [
+        parallelized_contribution_func(
+            jnp.arange(mode_basis_set),
+            mode_frequency,
+            mode_coupling,
         )
-        for mode_component_indices in itertools.product(
-            *[range(mode_basis_set) for mode_basis_set in mode_basis_sets]
+        for mode_basis_set, mode_frequency, mode_coupling in zip(
+            mode_basis_sets, mode_frequencies, mode_couplings
         )
     ]
 
-    return jnp.array(all_diagonal_values)
+    sum_contribution_combinations = outer_sum(*mode_diagonal_contributions).flatten()
+
+    all_diagonal_values = state_energy + sum_contribution_combinations
+
+    return all_diagonal_values
 
 
 def calculate_state_offdiagonals(
@@ -274,3 +270,29 @@ def calculate_mode_offdiagonal_component(
     mode_coupling: Float[Array, ""],
 ) -> Float[Scalar, ""]:
     return mode_frequency * mode_coupling * jnp.sqrt((component_index + 1) / 2)
+
+
+def outer_sum(*arrays):
+    """
+    Compute the outer sum of an arbitrary number of arrays.
+
+    Parameters:
+    *arrays: a variable number of arrays to sum.
+
+    Returns:
+    An array containing the outer sum of all input arrays.
+    """
+    # Ensure there is at least one array
+    if not arrays:
+        raise ValueError("At least one array is required")
+
+    # Start with the first array, reshaping it to have a new axis for each additional array
+    result = arrays[0].reshape(arrays[0].shape + (1,) * (len(arrays) - 1))
+
+    # Iteratively add each subsequent array, reshaping appropriately for broadcasting
+    for i, arr in enumerate(arrays[1:], 1):
+        # The new shape has 1's in all positions except the current dimension being added
+        new_shape = (1,) * i + arr.shape + (1,) * (len(arrays) - i - 1)
+        result += arr.reshape(new_shape)
+
+    return result
