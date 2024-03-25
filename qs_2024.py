@@ -6,6 +6,7 @@ from quantumspectra_2024.modules.Config import (
 from quantumspectra_2024.modules.absorption import AbsorptionModel, AbsorptionSpectrum
 
 from quantumspectra_2024.absorption.two_state import TwoStateModel
+from quantumspectra_2024.absorption.mlj import MLJModel
 
 
 def main():
@@ -13,6 +14,7 @@ def main():
 
     str_to_model: dict = {
         "two_state": TwoStateModel,
+        "mlj": MLJModel,
     }
     model: AbsorptionModel = initialize_absorption_from_config(
         config=config, str_to_model=str_to_model
