@@ -1,0 +1,31 @@
+# REQUIRED: output parameters
+out.filename = "stark_output"
+out.data = true
+out.plot = true
+out.overwrite = true
+
+# REQUIRED: model name
+model.name = "stark"
+
+# optional model parameters
+model.start_energy = 0
+model.end_energy = 20000
+model.num_points = 2001
+
+# model-specific parameters
+model.positive_field_strength = 0.01
+model.field_delta_dipole = 38
+model.field_delta_polarizability = 1000
+
+# submodel parameters
+model.neutral_submodel.name = "two_state"
+
+model.neutral_submodel.temperature_kelvin = 300
+model.neutral_submodel.broadening = 200
+
+model.neutral_submodel.transfer_integral = 100
+model.neutral_submodel.energy_gap = 8000
+
+model.neutral_submodel.mode_basis_sets = [20, 50]
+model.neutral_submodel.mode_frequencies = [1200, 100]
+model.neutral_submodel.mode_couplings = [0.7, 2.0]
