@@ -12,7 +12,22 @@ from quantumspectra_2024.absorption.mlj.MLJComputation import calculate_mlj_spec
 
 @jdc.pytree_dataclass(kw_only=True)
 class MLJModel(Model):
-    """A two-state two-mode MLJ model for absorption spectra."""
+    """A two-state two-mode MLJ model for absorption spectra.
+
+    Attributes:
+        start_energy (Float[Scalar, ""]): absorption spectrum's starting energy.
+        end_energy (Float[Scalar, ""]): absorption spectrum's ending energy.
+        num_points (Int[Scalar, ""]): absorption spectrum's number of points.
+
+        temperature_kelvin (Float[Scalar, ""]): system's temperature in Kelvin.
+        energy_gap (Float[Scalar, ""]): energy gap between the two states.
+        disorder_meV (Float[Scalar, ""]): disorder in the system in meV.
+
+        basis_size (Int[Scalar, ""]): size of basis set.
+
+        mode_frequencies (Float[Array, "2"]): frequency per mode.
+        mode_couplings (Float[Array, "2"]): excited state coupling per mode.
+    """
 
     temperature_kelvin: Float[Scalar, ""]
     energy_gap: Float[Scalar, ""]
