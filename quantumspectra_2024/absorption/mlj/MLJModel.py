@@ -18,7 +18,7 @@ class MLJModel(Model):
     energy_gap: Float[Scalar, ""]
     disorder_meV: Float[Scalar, ""]
 
-    basis_size: jdc.Static[Int[Scalar, ""]]
+    basis_size: jdc.Static[Int[Scalar, ""]] = 20
 
     mode_frequencies: Float[Array, "2"]
     mode_couplings: Float[Array, "2"]
