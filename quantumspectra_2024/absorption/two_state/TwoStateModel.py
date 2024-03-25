@@ -15,7 +15,23 @@ from quantumspectra_2024.absorption.two_state.TwoStateComputation import (
 
 @jdc.pytree_dataclass(kw_only=True)
 class TwoStateModel(Model):
-    """A two-state quantum mechanical model for absorption spectra."""
+    """A two-state quantum mechanical model for absorption spectra.
+
+    Attributes:
+        start_energy (Float[Scalar, ""]): absorption spectrum's starting energy.
+        end_energy (Float[Scalar, ""]): absorption spectrum's ending energy.
+        num_points (Int[Scalar, ""]): absorption spectrum's number of points.
+
+        temperature_kelvin (Float[Scalar, ""]): system's temperature in Kelvin.
+        broadening (Float[Scalar, ""]): absorption spectrum broadening factor.
+
+        transfer_integral (Float[Scalar, ""]): transfer integral between the two states.
+        energy_gap (Float[Scalar, ""]): energy gap between the two states.
+
+        mode_basis_sets (Int[Array, "num_modes"]): basis set size per mode.
+        mode_frequencies (Float[Array, "num_modes"]): frequency per mode.
+        mode_couplings (Float[Array, "num_modes"]): excited state coupling per mode.
+    """
 
     temperature_kelvin: Float[Scalar, ""]
     broadening: Float[Scalar, ""]
@@ -28,7 +44,11 @@ class TwoStateModel(Model):
     mode_couplings: Float[Array, "num_modes"]
 
     def get_absorption(self) -> AbsorptionSpectrum:
-        """Compute the absorption spectrum for the model."""
+        """Compute the absorption spectrum for the model.
+
+        Returns:
+            AbsorptionSpectrum: the model's parameterized absorption spectrum.
+        """
         # compute the Hamiltonian
         hamiltonian = self.get_hamiltonian()
 
@@ -63,6 +83,11 @@ class TwoStateModel(Model):
         )
 
     def get_hamiltonian(self) -> HamiltonianModel:
+        """Returns the model's associated Hamiltonian.
+
+        Returns:
+            HamiltonianModel: the model's Hamiltonian.
+        """
         return HamiltonianModel(
             transfer_integral=self.transfer_integral,
             state_energies=jnp.array([0.0, self.energy_gap]),
@@ -80,6 +105,16 @@ class TwoStateModel(Model):
         field_delta_dipole: Array,
         field_delta_polarizability: Array,
     ) -> "TwoStateModel":
+        """Applies an electric field to the model. Returns a new instance of the model.
+
+        Args:
+            field_strength (Float[Scalar, ""]): the strength of the electric field.
+            field_delta_dipole (Float[Scalar, ""]): the change in dipole moment due to the electric field.
+            field_delta_polarizability (Float[Scalar, ""]): the change in polarizability due to the electric field.
+
+        Returns:
+            TwoStateModel: the model with the electric field applied.
+        """
         dipole_energy_change = field_delta_dipole * field_strength * 1679.0870295
         polarizability_energy_change = (
             0.5 * (field_strength**2) * field_delta_polarizability * 559.91
