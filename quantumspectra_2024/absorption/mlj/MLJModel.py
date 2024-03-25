@@ -54,10 +54,13 @@ class MLJModel(Model):
         )
 
     def get_low_high_frequency_modes(self):
-        sorted_frequency_indices = np.argsort(self.mode_frequencies)
+        mode_frequencies = np.array(self.mode_frequencies)
+        mode_couplings = np.array(self.mode_couplings)
 
-        sorted_frequencies = self.mode_frequencies[sorted_frequency_indices]
-        sorted_couplings = self.mode_couplings[sorted_frequency_indices]
+        sorted_frequency_indices = np.argsort(mode_frequencies)
+
+        sorted_frequencies = mode_frequencies[sorted_frequency_indices]
+        sorted_couplings = mode_couplings[sorted_frequency_indices]
 
         # Assign to variables
         lower_frequency = sorted_frequencies[0]
@@ -73,4 +76,3 @@ class MLJModel(Model):
 
     def __post_init__(self):
         self.verify_modes()
-        super().__post_init__()
