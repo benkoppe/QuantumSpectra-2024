@@ -39,6 +39,13 @@ class MLJModel(Model):
     mode_couplings: Float[Array, "2"]
 
     def get_absorption(self) -> AbsorptionSpectrum:
+        """Compute the absorption spectrum for the model.
+
+        See docs in `MLJComputation` to see how this is done.
+
+        Returns:
+            AbsorptionSpectrum: the model's parameterized absorption spectrum.
+        """
         # get absorption spectrum sample energies (x values)
         sample_points = jnp.linspace(
             float(self.start_energy), float(self.end_energy), int(self.num_points)
@@ -68,7 +75,16 @@ class MLJModel(Model):
             intensities=jnp.array(spectrum),
         )
 
-    def get_low_high_frequency_modes(self):
+    def get_low_high_frequency_modes(self) -> tuple[float, float, float, float]:
+        """Extracts the low and high frequency modes and mode couplings from the model.
+
+        Model was already verified to have exactly two modes.
+        This function sorts the modes by frequency and returns the lowest and highest frequency modes.
+        This is useful for the `calculate_mlj_spectrum` function, which expects the low and high frequency modes explicitly.
+
+        Returns:
+            tuple[float, float, float, float]: low frequency, low coupling, high frequency, high coupling.
+        """
         mode_frequencies = np.array(self.mode_frequencies)
         mode_couplings = np.array(self.mode_couplings)
 
@@ -91,6 +107,16 @@ class MLJModel(Model):
         field_delta_dipole: Array,
         field_delta_polarizability: Array,
     ) -> "MLJModel":
+        """Applies an electric field to the model. Returns a new instance of the model.
+
+        Args:
+            field_strength (Float[Scalar, ""]): the strength of the electric field.
+            field_delta_dipole (Float[Scalar, ""]): the change in dipole moment due to the electric field.
+            field_delta_polarizability (Float[Scalar, ""]): the change in polarizability due to the electric field.
+
+        Returns:
+            TwoStateModel: the model with the electric field applied.
+        """
         dipole_energy_change = field_delta_dipole * field_strength * 1679.0870295
         polarizability_energy_change = (
             0.5 * (field_strength**2) * field_delta_polarizability * 559.91
@@ -102,9 +128,14 @@ class MLJModel(Model):
             energy_gap=self.energy_gap + field_energy_change,
         )
 
-    def verify_modes(self):
+    def _verify_modes(self):
+        """Verifies that the model has exactly two modes.
+
+        Raises:
+            ValueError: if the model does not have exactly two modes.
+        """
         if len(self.mode_frequencies) != 2 or len(self.mode_couplings) != 2:
             raise ValueError("The MLJ model requires exactly two modes.")
 
     def __post_init__(self):
-        self.verify_modes()
+        self._verify_modes()
