@@ -73,3 +73,20 @@ class TwoStateModel(Model):
                 [[0.0, mode_coupling] for mode_coupling in self.mode_couplings]
             ),
         )
+
+    def apply_electric_field(
+        self,
+        field_strength: Array,
+        field_delta_dipole: Array,
+        field_delta_polarizability: Array,
+    ) -> "TwoStateModel":
+        dipole_energy_change = field_delta_dipole * field_strength * 1679.0870295
+        polarizability_energy_change = (
+            0.5 * (field_strength**2) * field_delta_polarizability * 559.91
+        )
+        field_energy_change = -1 * (dipole_energy_change + polarizability_energy_change)
+
+        return jdc.replace(
+            self,
+            energy_gap=self.energy_gap + field_energy_change,
+        )

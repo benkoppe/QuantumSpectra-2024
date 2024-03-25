@@ -70,6 +70,23 @@ class MLJModel(Model):
 
         return lower_frequency, lower_coupling, higher_frequency, higher_coupling
 
+    def apply_electric_field(
+        self,
+        field_strength: Array,
+        field_delta_dipole: Array,
+        field_delta_polarizability: Array,
+    ) -> "MLJModel":
+        dipole_energy_change = field_delta_dipole * field_strength * 1679.0870295
+        polarizability_energy_change = (
+            0.5 * (field_strength**2) * field_delta_polarizability * 559.91
+        )
+        field_energy_change = -1 * (dipole_energy_change + polarizability_energy_change)
+
+        return jdc.replace(
+            self,
+            energy_gap=self.energy_gap + field_energy_change,
+        )
+
     def verify_modes(self):
         if len(self.mode_frequencies) != 2 or len(self.mode_couplings) != 2:
             raise ValueError("The MLJ model requires exactly two modes.")

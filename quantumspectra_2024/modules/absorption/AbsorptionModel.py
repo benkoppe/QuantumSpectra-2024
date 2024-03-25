@@ -18,3 +18,12 @@ class AbsorptionModel(ABC):
     def get_absorption(self) -> AbsorptionSpectrum:
         """Compute the absorption spectrum for the model."""
         pass
+
+    @abstractmethod
+    def apply_electric_field(
+        field_strength: Float[Scalar, ""],
+        field_delta_dipole: Float[Scalar, ""],
+        field_delta_polarizability: Float[Scalar, ""],
+    ) -> "AbsorptionModel":
+        """Apply an electric field to the model."""
+        pass
