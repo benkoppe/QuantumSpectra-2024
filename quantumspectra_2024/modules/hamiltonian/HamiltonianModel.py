@@ -36,7 +36,7 @@ class HamiltonianModel:
         """Compute the diagonalization of the Hamiltonian.
 
         First computes the Hamiltonian matrix, then diagonalizes it.
-        See docs in `quantumspectra_2024.modules.hamiltonian.HamiltonianComputation` to see how this is done.
+        See docs in `HamiltonianComputation` to see how this is done.
 
         Returns:
             tuple[Float[Array, "matrix_size"], Float[Array, "matrix_size matrix_size"]]: tuple containing the eigenvalues and eigenvectors in `jax` arrays.
@@ -52,7 +52,7 @@ class HamiltonianModel:
     def get_matrix(self) -> Float[Array, "matrix_size matrix_size"]:
         """Builds the Hamiltonian matrix.
 
-        See docs in `quantumspectra_2024.modules.hamiltonian.HamiltonianComputation` to see how this is done.
+        See docs in `HamiltonianComputation` to see how this is done.
 
         Returns:
             Float[Array, "matrix_size matrix_size"]: fully constructed matrix in `jax` array.
