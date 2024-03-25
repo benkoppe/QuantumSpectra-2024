@@ -15,6 +15,25 @@ def calculate_mlj_spectrum(
     basis_size: Int[Scalar, ""],
     sample_points: Float[Array, "num_points"],
 ) -> Float[Array, "num_points"]:
+    """Computes an MLJ semiclassical absorption spectrum.
+
+    Todo:
+        * Add more detailed implemention description.
+
+    Args:
+        energy_gap (Float[Scalar, ""]): energy gap between states.
+        high_freq_frequency (Float[Scalar, ""]): frequency of high frequency mode.
+        high_freq_coupling (Float[Scalar, ""]): coupling of high frequency mode.
+        low_freq_frequency (Float[Scalar, ""]): frequency of low frequency mode.
+        low_freq_coupling (Float[Scalar, ""]): coupling of low frequency mode.
+        temperature_kelvin (Float[Scalar, ""]): temperature in Kelvin.
+        disorder_meV (Float[Scalar, ""]): disorder (sigma) in meV.
+        basis_size (Int[Scalar, ""]): size of basis set.
+        sample_points (Float[Array, "num_points"]): energy points to sample spectrum.
+
+    Returns:
+        Float[Array, "num_points"]: Computed absorption spectrum.
+    """
     # compute necessary values
     disorder_wavenumbers = disorder_meV * 8061 * 0.001
     low_freq_relaxation_energy = low_freq_coupling**2 * low_freq_frequency
