@@ -7,7 +7,12 @@ from jaxtyping import Float, Array
 
 @jdc.pytree_dataclass(kw_only=True)
 class AbsorptionSpectrum:
-    """Represents an absorption spectrum. Outputted by all `AbsorptionModel` subclasses."""
+    """Represents an absorption spectrum. Outputted by all `AbsorptionModel` subclasses.
+
+    Attributes:
+        energies (Float[Array, "num_points"]): the x values of the absorption spectrum
+        intensities (Float[Array, "num_points"]): the y values of the absorption spectrum
+    """
 
     energies: Float[Array, "num_points"]
     intensities: Float[Array, "num_points"]
