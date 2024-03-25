@@ -66,6 +66,16 @@ def initialize_absorption_from_config(
     model = str_to_model[model_name]
 
     model_config.pop(MODEL_NAME_KEY)
+
+    # replace subdicts with submodels
+    for key, value in model_config.items():
+        if isinstance(value, dict):
+            submodel = initialize_absorption_from_config(
+                config={MODEL_CONFIG_NAME: value, OUT_CONFIG_NAME: {}},
+                str_to_model=str_to_model,
+            )
+            model_config[key] = submodel
+
     return model(**model_config)
 
 
