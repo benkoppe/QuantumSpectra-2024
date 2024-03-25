@@ -46,6 +46,11 @@ class TwoStateModel(Model):
     def get_absorption(self) -> AbsorptionSpectrum:
         """Compute the absorption spectrum for the model.
 
+        First computes the Hamiltonian, then diagonalizes it to get eigenvalues and eigenvectors.
+        Then computes the absorption spectrum peaks and broadens them into a spectrum.
+
+        See docs in `HamiltonianComputation` and `TwoStateComputation` to see how this is done.
+
         Returns:
             AbsorptionSpectrum: the model's parameterized absorption spectrum.
         """
@@ -83,7 +88,7 @@ class TwoStateModel(Model):
         )
 
     def get_hamiltonian(self) -> HamiltonianModel:
-        """Returns the model's associated Hamiltonian.
+        """Returns the model's associated `HamiltonianModel`.
 
         Returns:
             HamiltonianModel: the model's Hamiltonian.
