@@ -14,9 +14,9 @@ class AbsorptionModel(ABC):
     An `apply_electric_field` method is also included to apply an electric field to base models for Stark effect.
 
     Attributes:
-        start_energy (Float[Scalar, ""]): the starting energy of the absorption spectrum
-        end_energy (Float[Scalar, ""]): the ending energy of the absorption spectrum
-        num_points (Int[Scalar, ""]): the number of points in the absorption spectrum
+        start_energy (Float[Scalar, ""]): absorption spectrum's starting energy
+        end_energy (Float[Scalar, ""]): absorption spectrum's ending energy
+        num_points (Int[Scalar, ""]): absorption spectrum's number of points
     """
 
     start_energy: jdc.Static[Float[Scalar, ""]] = 0.0
