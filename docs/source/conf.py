@@ -19,7 +19,6 @@ author = "Ben Koppe"
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
 extensions = [
-    "sphinx.ext.autosectionlabel",
     "sphinx.ext.doctest",
     "sphinx.ext.todo",
     "sphinx.ext.mathjax",
@@ -29,7 +28,6 @@ extensions = [
     "sphinx.ext.duration",
     "sphinx.ext.autosummary",
     "sphinx.ext.intersphinx",
-    "sphinx.ext.todo",
     "sphinx_rtd_theme",
     "sphinx_copybutton",
 ]
