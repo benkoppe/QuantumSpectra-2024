@@ -24,7 +24,7 @@ esbonio = "^0.16.4"
 docutils = "^0.20.1"
 
 [tool.poetry.scripts]
-qs_2024 = "qs_2024:main"
+qs_2024 = "quantumspectra_2024.qs_2024:main"
 
 [build-system]
 requires = ["poetry-core"]
