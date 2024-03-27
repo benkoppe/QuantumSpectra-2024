@@ -9,6 +9,7 @@ Subpackages
 
    quantumspectra_2024.absorption
    quantumspectra_2024.modules
+   quantumspectra_2024.scripts
 
 Module contents
 ---------------
