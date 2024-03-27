@@ -94,10 +94,10 @@ def build_local_state_block(
     """Builds a local state block.
 
     To see how block are built, see `build_state_block`.
-    To build a local state block, the following steps are taken:
-        * Calculate the state's diagonal values with `calculate_state_local_diagonals`.
-        * Calculate the state's offdiagonal values with `calculate_state_offdiagonals`.
-        * Build the state block.
+    To build a local state block, the following steps are taken.
+    * Calculate the state's diagonal values with `calculate_state_local_diagonals`.
+    * Calculate the state's offdiagonal values with `calculate_state_offdiagonals`.
+    * Build the state block.
 
     Args:
         state_index (Int[Scalar, ""]): index of the state.
@@ -149,10 +149,10 @@ def build_nonlocal_state_block(
     """Builds a nonlocal state block.
 
     To see how blocks are built, see `build_state_block`.
-    To build a nonlocal state block, the following steps are taken:
-        * The state's offdiagonal values are all set to the transfer integral.
-        * Calculate the state's diagonal values with `calculate_state_local_diagonals`.
-        * Build the state block.
+    To build a nonlocal state block, the following steps are taken.
+    * The state's offdiagonal values are all set to the transfer integral.
+    * Calculate the state's diagonal values with `calculate_state_local_diagonals`.
+    * Build the state block.
 
     Args:
         state_index (Int[Scalar, ""]): index of the state.
@@ -389,7 +389,7 @@ def calculate_mode_offdiagonal_component(
     return mode_frequency * mode_coupling * jnp.sqrt((component_index + 1) / 2)
 
 
-def outer_sum(*arrays: Array[Float, ...]) -> Array[Float, ...]:
+def outer_sum(*arrays: Float[Array, "*"]) -> Float[Array, "*"]:
     """
     Computes the outer sum of multiple JAX arrays.
 
