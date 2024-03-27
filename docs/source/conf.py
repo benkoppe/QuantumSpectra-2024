@@ -45,12 +45,5 @@ html_theme = "sphinx_rtd_theme"
 html_static_path = ["_static"]
 
 html_theme_options = {
-    "vcs_pageview_mode": "",
-    # Toc options
     "collapse_navigation": False,
-    "sticky_navigation": True,
-    "navigation_depth": 4,
-    "includehidden": True,
-    "titles_only": False,
 }
-html_sidebars = {"**": ["logo-text.html", "globaltoc.html", "searchbox.html"]}
