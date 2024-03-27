@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "quantumspectra-2024"
-version = "0.1.0"
+version = "0.1.2"
 description = "generates absorption spectra for donor-acceptor quantum systems"
 authors = ["benkoppe <bentastic1@gmail.com>"]
 readme = "README.md"
@@ -24,7 +24,7 @@ esbonio = "^0.16.4"
 docutils = "^0.20.1"
 
 [tool.poetry.scripts]
-qs_2024 = "quantumspectra_2024.qs_2024:main"
+qs_2024 = "quantumspectra_2024.scripts.qs_2024:main"
 
 [build-system]
 requires = ["poetry-core"]
