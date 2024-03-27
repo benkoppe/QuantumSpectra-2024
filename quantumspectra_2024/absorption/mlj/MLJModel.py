@@ -14,7 +14,7 @@ from quantumspectra_2024.absorption.mlj.MLJComputation import calculate_mlj_spec
 class MLJModel(Model):
     """A two-state two-mode MLJ model for absorption spectra.
 
-    Attributes:
+    Args:
         start_energy (Float[Scalar, ""]): absorption spectrum's starting energy.
         end_energy (Float[Scalar, ""]): absorption spectrum's ending energy.
         num_points (Int[Scalar, ""]): absorption spectrum's number of points.

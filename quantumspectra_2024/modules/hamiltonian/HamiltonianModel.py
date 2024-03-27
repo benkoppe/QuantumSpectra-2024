@@ -11,7 +11,7 @@ from quantumspectra_2024.modules.hamiltonian.HamiltonianComputation import (
 class HamiltonianModel:
     """A hamiltonian model for a quantum system.
 
-    Attributes:
+    Args:
         transfer_integral (Float[Scalar, ""]): transfer integral between states.
         state_energies (Float[Array, "num_states"]): energies of each state.
 

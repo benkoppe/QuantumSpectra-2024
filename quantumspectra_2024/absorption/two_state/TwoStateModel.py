@@ -17,7 +17,7 @@ from quantumspectra_2024.absorption.two_state.TwoStateComputation import (
 class TwoStateModel(Model):
     """A two-state quantum mechanical model for absorption spectra.
 
-    Attributes:
+    Args:
         start_energy (Float[Scalar, ""]): absorption spectrum's starting energy.
         end_energy (Float[Scalar, ""]): absorption spectrum's ending energy.
         num_points (Int[Scalar, ""]): absorption spectrum's number of points.

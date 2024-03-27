@@ -12,7 +12,7 @@ from quantumspectra_2024.modules.absorption import (
 class StarkModel(Model):
     """A general model for Stark absorption spectrum.
 
-    Attributes:
+    Args:
         start_energy (Float[Scalar, ""]): absorption spectrum's starting energy.
         end_energy (Float[Scalar, ""]): absorption spectrum's ending energy.
         num_points (Int[Scalar, ""]): absorption spectrum's number of points.

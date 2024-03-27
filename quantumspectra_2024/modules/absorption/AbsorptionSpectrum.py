@@ -9,7 +9,7 @@ from jaxtyping import Float, Array
 class AbsorptionSpectrum:
     """Represents an absorption spectrum. Outputted by all `AbsorptionModel` subclasses.
 
-    Attributes:
+    Args:
         energies (Float[Array, "num_points"]): the x values of the absorption spectrum.
         intensities (Float[Array, "num_points"]): the y values of the absorption spectrum.
     """

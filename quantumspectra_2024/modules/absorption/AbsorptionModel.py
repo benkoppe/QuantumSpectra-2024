@@ -13,7 +13,7 @@ class AbsorptionModel(ABC):
     All models include a `get_absorption` method that returns an `AbsorptionSpectrum` object.
     An `apply_electric_field` method is also included to apply an electric field to base models for Stark effect.
 
-    Attributes:
+    Args:
         start_energy (Float[Scalar, ""]): absorption spectrum's starting energy.
         end_energy (Float[Scalar, ""]): absorption spectrum's ending energy.
         num_points (Int[Scalar, ""]): absorption spectrum's number of points.
