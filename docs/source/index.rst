@@ -17,3 +17,9 @@ A number of different models are implemented, all of which are based in quantum 
 
    startup/installation
    startup/usage
+
+.. toctree:: 
+   :maxdepth: 1
+   :caption: All Package Modules
+
+   package/modules
