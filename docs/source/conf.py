@@ -9,7 +9,7 @@
 import os
 import sys
 
-sys.path.insert(0, os.path.abspath("../.."))
+sys.path.insert(0, os.path.abspath("../../"))
 
 project = "QuantumSpectra-2024"
 copyright = "2024, Ben Koppe"
@@ -19,23 +19,43 @@ author = "Ben Koppe"
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
 extensions = [
-    "sphinx.ext.doctest",
+    "sphinx.ext.autodoc",
+    # "sphinx.ext.napoleon",
+    "numpydoc",
     "sphinx.ext.todo",
     "sphinx.ext.mathjax",
-    "sphinx.ext.autodoc",
     "sphinx.ext.viewcode",
-    "sphinx.ext.napoleon",
     "sphinx.ext.duration",
-    "sphinx.ext.autosummary",
     "sphinx.ext.intersphinx",
     "sphinx_rtd_theme",
     "sphinx_copybutton",
+    "sphinx.ext.autosummary",
+    # "autoapi.extension",
 ]
 
 templates_path = ["_templates"]
 exclude_patterns = []
 
 pygments_style = "sphinx"
+
+autosummary_generate = True
+
+# autoclass_content = "class"
+
+# numpydoc_show_class_members = False
+numpydoc_show_inherited_class_members = True
+# numpydoc_xref_param_type = True
+# numpydoc_xref_aliases = {
+
+# }
+
+autoapi_dirs = ["../../quantumspectra_2024"]
+
+intersphinx_mapping = {
+    "python": ("https://docs.python.org/3", None),
+    "numpy": ("https://numpy.org/doc/stable/", None),
+    "jax": ("https://jax.readthedocs.io/en/latest/", None),
+}
 
 
 # -- Options for HTML output -------------------------------------------------
