@@ -17,30 +17,48 @@ from quantumspectra_2024.absorption.two_state.TwoStateComputation import (
 class TwoStateModel(Model):
     """A two-state quantum mechanical model for absorption spectra.
 
-    Args:
-        start_energy (Float[Scalar, ""]): absorption spectrum's starting energy.
-        end_energy (Float[Scalar, ""]): absorption spectrum's ending energy.
-        num_points (Int[Scalar, ""]): absorption spectrum's number of points.
+    Parameters
+    ----------
+    start_energy : Float[Scalar, ""]
+        absorption spectrum's starting energy.
+    end_energy : Float[Scalar, ""]
+        absorption spectrum's ending energy.
+    num_points : Int[Scalar, ""]
+        absorption spectrum's number of points.
 
-        temperature_kelvin (Float[Scalar, ""]): system's temperature in Kelvin.
-        broadening (Float[Scalar, ""]): absorption spectrum broadening factor.
+    broadening : Float[Scalar, ""]
+        absorption spectrum broadening factor.
+    temperature_kelvin : Float[Scalar, ""]
+        system's temperature in Kelvin.
 
-        transfer_integral (Float[Scalar, ""]): transfer integral between the two states.
-        energy_gap (Float[Scalar, ""]): energy gap between the two states.
+    transfer_integral : Float[Scalar, ""]
+        transfer integral between the two states.
+    energy_gap : Float[Scalar, ""]
+        energy gap between the two states.
 
-        mode_basis_sets (Int[Array, "num_modes"]): basis set size per mode.
-        mode_frequencies (Float[Array, "num_modes"]): frequency per mode.
-        mode_couplings (Float[Array, "num_modes"]): excited state coupling per mode.
+    mode_basis_sets : Int[Array, "num_modes"]
+        basis set size per mode.
+    mode_frequencies : Float[Array, "num_modes"]
+        frequency per mode.
+    mode_couplings : Float[Array, "num_modes"]
+        excited state coupling per mode.
     """
 
-    temperature_kelvin: Float[Scalar, ""]
+    #: Float[Scalar, ""]: absorption spectrum broadening factor.
     broadening: Float[Scalar, ""]
+    #: Float[Scalar, ""]: system's temperature in Kelvin.
+    temperature_kelvin: Float[Scalar, ""]
 
+    #: Float[Scalar, ""]: transfer integral between the two states.
     transfer_integral: Float[Scalar, ""]
+    #: Float[Scalar, ""]: energy gap between the two states.
     energy_gap: Float[Scalar, ""]
 
+    #: Float[Array, "num_modes"]: basis set size per mode.
     mode_basis_sets: jdc.Static[Int[Array, "num_modes"]]
+    #: Float[Array, "num_modes"]: frequency per mode.
     mode_frequencies: Float[Array, "num_modes"]
+    #: Float[Array, "num_modes"]: excited state coupling per mode.
     mode_couplings: Float[Array, "num_modes"]
 
     def get_absorption(self) -> AbsorptionSpectrum:
@@ -49,10 +67,12 @@ class TwoStateModel(Model):
         First computes the Hamiltonian, then diagonalizes it to get eigenvalues and eigenvectors.
         Then computes the absorption spectrum peaks and broadens them into a spectrum.
 
-        See docs in `HamiltonianComputation` and `TwoStateComputation` to see how this is done.
+        See docs in :class:`quantumspectra_2024.modules.hamiltonian.HamiltonianComputation` and :class:`TwoStateComputation` to see how this is done.
 
-        Returns:
-            AbsorptionSpectrum: the model's parameterized absorption spectrum.
+        Returns
+        -------
+        AbsorptionSpectrum
+            the model's parameterized absorption spectrum.
         """
         # compute the Hamiltonian
         hamiltonian = self.get_hamiltonian()
@@ -90,8 +110,10 @@ class TwoStateModel(Model):
     def get_hamiltonian(self) -> HamiltonianModel:
         """Returns the model's associated `HamiltonianModel`.
 
-        Returns:
-            HamiltonianModel: the model's Hamiltonian.
+        Returns
+        -------
+        HamiltonianModel
+            the model's Hamiltonian.
         """
         return HamiltonianModel(
             transfer_integral=self.transfer_integral,
@@ -112,13 +134,19 @@ class TwoStateModel(Model):
     ) -> "TwoStateModel":
         """Applies an electric field to the model. Returns a new instance of the model.
 
-        Args:
-            field_strength (Float[Scalar, ""]): the strength of the electric field.
-            field_delta_dipole (Float[Scalar, ""]): the change in dipole moment due to the electric field.
-            field_delta_polarizability (Float[Scalar, ""]): the change in polarizability due to the electric field.
+        Parameters
+        ----------
+        field_strength : Float[Scalar, ""]
+            the strength of the electric field.
+        field_delta_dipole : Float[Scalar, ""]
+            the change in dipole moment due to the electric field.
+        field_delta_polarizability : Float[Scalar, ""]
+            the change in polarizability due to the electric field.
 
-        Returns:
-            TwoStateModel: the model with the electric field applied.
+        Returns
+        -------
+        TwoStateModel
+            the model with the electric field applied.
         """
         dipole_energy_change = field_delta_dipole * field_strength * 1679.0870295
         polarizability_energy_change = (

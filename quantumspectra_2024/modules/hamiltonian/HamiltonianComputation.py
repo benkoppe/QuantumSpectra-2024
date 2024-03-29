@@ -9,11 +9,15 @@ def diagonalize_matrix(matrix: Float[Array, "matrix_size matrix_size"]) -> tuple
 ]:
     """Diagonalizes a matrix and returns the eigenvalues and eigenvectors in a tuple.
 
-    Args:
-        matrix (Float[Array, "matrix_size matrix_size"]): a matrix to diagonalize.
+    Parameters
+    ----------
+    matrix : Float[Array, "matrix_size matrix_size"]
+        a matrix to diagonalize.
 
-    Returns:
-        tuple[Float[Array, "matrix_size"], Float[Array, "matrix_size matrix_size"]]: tuple containing the eigenvalues and eigenvectors.
+    Returns
+    -------
+    tuple[Float[Array, "matrix_size"], Float[Array, "matrix_size matrix_size"]]
+        tuple containing the eigenvalues and eigenvectors.
     """
     eigenvalues, eigenvectors = jnp.linalg.eigh(matrix)
     return eigenvalues, eigenvectors
@@ -33,19 +37,29 @@ def build_matrix(
     States along the diagonal are so-called 'local' states, while offdiagonal states are 'nonlocal'.
     See documentation for `build_local_state_block` and `build_nonlocal_state_block` for more information.
 
-    Todo:
-        * Implement multiple transfer integrals for more than two states.
+    Todo
+    ----
+    * Implement multiple transfer integrals for more than two states.
 
-    Args:
-        state_energies (Float[Array, "num_states"]): energies of all local states.
-        transfer_integral (Float[Scalar, ""): transfer integral between states.
-        mode_basis_sets (Int[Array, "num_modes"]): basis set size per mode.
-        mode_localities (Bool[Array, "num_modes"]): locality of each mode.
-        mode_frequencies (Float[Array, "num_modes"]): frequency per mode.
-        mode_state_couplings (Float[Array, "num_modes num_states"]): coupling per mode and local state.
+    Parameters
+    ----------
+    state_energies : Float[Array, "num_states"]
+        energies of all local states.
+    transfer_integral : Float[Scalar, ""]
+        transfer integral between states.
+    mode_basis_sets : Int[Array, "num_modes"]
+        basis set size per mode.
+    mode_localities : Bool[Array, "num_modes"]
+        locality of each mode.
+    mode_frequencies : Float[Array, "num_modes"]
+        frequency per mode.
+    mode_state_couplings : Float[Array, "num_modes num_states"]
+        coupling per mode and local state.
 
-    Returns:
-        Float[Array, "matrix_size matrix_size"]: fully constructed matrix in `jax` array.
+    Returns
+    -------
+    Float[Array, "matrix_size matrix_size"]
+        fully constructed matrix in `jax` array.
     """
     num_states = len(state_energies)
 
@@ -99,16 +113,25 @@ def build_local_state_block(
     * Calculate the state's offdiagonal values with `calculate_state_offdiagonals`.
     * Build the state block.
 
-    Args:
-        state_index (Int[Scalar, ""]): index of the state.
-        state_energies (Float[Array, "num_states"]): energies of all local states.
-        mode_basis_sets (Int[Array, "num_modes"]): basis set size per mode.
-        mode_localities (Bool[Array, "num_modes"]): locality of each mode.
-        mode_frequencies (Float[Array, "num_modes"]): frequency per mode.
-        mode_state_couplings (Float[Array, "num_modes num_states"]): coupling per mode and local state.
+    Parameters
+    ----------
+    state_index : Int[Scalar, ""]
+        index of the state.
+    state_energies : Float[Array, "num_states"]
+        energies of all local states.
+    mode_basis_sets : Int[Array, "num_modes"]
+        basis set size per mode.
+    mode_localities : Bool[Array, "num_modes"]
+        locality of each mode.
+    mode_frequencies : Float[Array, "num_modes"]
+        frequency per mode.
+    mode_state_couplings : Float[Array, "num_modes num_states"]
+        coupling per mode and local state.
 
-    Returns:
-        Float[Array, "block_size block_size"]: constructed matrix block.
+    Returns
+    -------
+    Float[Array, "block_size block_size"]
+        constructed matrix block.
     """
     state_energy = state_energies[state_index]
     mode_couplings = mode_state_couplings[:, state_index]
@@ -154,16 +177,25 @@ def build_nonlocal_state_block(
     * Calculate the state's diagonal values with `calculate_state_local_diagonals`.
     * Build the state block.
 
-    Args:
-        state_index (Int[Scalar, ""]): index of the state.
-        transfer_integral (Float[Scalar, ""): transfer integral between states.
-        mode_basis_sets (Int[Array, "num_modes"]): basis set size per mode.
-        mode_localities (Bool[Array, "num_modes"]): locality of each mode.
-        mode_frequencies (Float[Array, "num_modes"]): frequency per mode.
-        mode_state_couplings (Float[Array, "num_modes num_states"]): coupling per mode and local state.
+    Parameters
+    ----------
+    state_index : Int[Scalar, ""]
+        index of the state.
+    transfer_integral : Float[Scalar, ""]
+        transfer integral between states.
+    mode_basis_sets : Int[Array, "num_modes"]
+        basis set size per mode.
+    mode_localities : Bool[Array, "num_modes"]
+        locality of each mode.
+    mode_frequencies : Float[Array, "num_modes"]
+        frequency per mode.
+    mode_state_couplings : Float[Array, "num_modes num_states"]
+        coupling per mode and local state.
 
-    Returns:
-        Float[Array, "block_size block_size"]: constructed matrix block.
+    Returns
+    -------
+    Float[Array, "block_size block_size"]
+        constructed matrix block.
     """
     mode_couplings = mode_state_couplings[:, state_index]
 
@@ -219,13 +251,19 @@ def build_state_block(
               m_i is the offdiagonal value for the last mode at subindex i
               n_i is the offdiagonal value for the last mode at subindex i
 
-    Args:
-        all_diagonal_values (Float[Array, "block_size"]): all state diagonal values.
-        all_mode_offdiagonal_values (tuple[Float[Array, "_"]]): all offdiagonal values for the state block per mode.
-        mode_basis_sets (Float[Array, "num_modes"]): basis set sizes per mode.
+    Parameters
+    ----------
+    all_diagonal_values : Float[Array, "block_size"]
+        all state diagonal values.
+    all_mode_offdiagonal_values : tuple[Float[Array, "_"]]
+        all offdiagonal values for the state block per mode.
+    mode_basis_sets : Float[Array, "num_modes"]
+        basis set sizes per mode.
 
-    Returns:
-        Float[Array, "block_size block_size"]: constructed matrix block.
+    Returns
+    -------
+    Float[Array, "block_size block_size"]
+        constructed matrix block.
     """
     # start with an empty block of size 1
     block = jnp.zeros((1, 1))
@@ -269,14 +307,21 @@ def calculate_state_local_diagonals(
     Contributions for each mode are summed with all combinations of values between 1 and their basis set size - 1.
     To see how individual mode contributions are calculated, see `calculate_mode_local_diagonal_component`.
 
-    Args:
-        state_energy (Float[Scalar, ""]): energy of the state.
-        mode_frequencies (Float[Array, "num_modes"]): frequencies of each mode.
-        mode_couplings (Float[Array, "num_modes"]): couplings of each mode.
-        mode_basis_sets (Int[Array, "num_modes"]): basis set size of each mode.
+    Parameters
+    ----------
+    state_energy : Float[Scalar, ""]
+        energy of the state.
+    mode_frequencies : Float[Array, "num_modes"]
+        frequencies of each mode.
+    mode_couplings : Float[Array, "num_modes"]
+        couplings of each mode.
+    mode_basis_sets : Int[Array, "num_modes"]
+        basis set size of each mode.
 
-    Returns:
-        Float[Array, "block_size"]: all diagonal values for the state block.
+    Returns
+    -------
+    Float[Array, "block_size"]
+        all diagonal values for the state block.
     """
     parallelized_contribution_func = jax.vmap(
         calculate_mode_local_diagonal_component, in_axes=(0, None, None)
@@ -314,15 +359,23 @@ def calculate_state_offdiagonals(
     If the mode doesn't match the locality of the state, the offdiagonals are all set to zero.
     To see how individual mode offdiagonal values are calculated, see `calculate_mode_offdiagonal_component`.
 
-    Args:
-        state_locality (Bool[Scalar, ""]): the locality of the state.
-        mode_basis_sets (Int[Array, "num_modes"]): basis set size of each mode.
-        mode_localities (Bool[Array, "num_modes"]): locality of each mode.
-        mode_frequencies (Float[Array, "num_modes"]): frequencies of each mode.
-        mode_couplings (Float[Array, "num_modes"]): couplings of each mode.
+    Parameters
+    ----------
+    state_locality : Bool[Scalar, ""]
+        the locality of the state.
+    mode_basis_sets : Int[Array, "num_modes"]
+        basis set size of each mode.
+    mode_localities : Bool[Array, "num_modes"]
+        locality of each mode.
+    mode_frequencies : Float[Array, "num_modes"]
+        frequencies of each mode.
+    mode_couplings : Float[Array, "num_modes"]
+        couplings of each mode.
 
-    Returns:
-        tuple[Float[Array, "_mode_offdiagonal_size"]]: all offdiagonal values for the state block per mode.
+    Returns
+    -------
+    tuple[Float[Array, "_mode_offdiagonal_size"]]
+        all offdiagonal values for the state block per mode.
     """
     all_mode_offdiagonal_values = tuple(
         (
@@ -356,13 +409,19 @@ def calculate_mode_local_diagonal_component(
         * The mode frequency is multiplied by the component index plus one half
         * This value is then multiplied by the square of the mode coupling, divided by two.
 
-    Args:
-        component_index (Int[Scalar, ""]): the index of the component.
-        mode_frequency (Float[Scalar, ""]): the frequency of the mode.
-        mode_coupling (Float[Scalar, ""]): the coupling of the mode.
+    Parameters
+    ----------
+    component_index : Int[Scalar, ""]
+        the index of the component.
+    mode_frequency : Float[Scalar, ""]
+        the frequency of the mode.
+    mode_coupling : Float[Scalar, ""]
+        the coupling of the mode.
 
-    Returns:
-        Float[Scalar, ""]: the computed diagonal contribution component.
+    Returns
+    -------
+    Float[Scalar, ""]
+        the computed diagonal contribution component.
     """
     return mode_frequency * ((component_index + (1 / 2)) + (mode_coupling**2) / 2)
 
@@ -378,18 +437,24 @@ def calculate_mode_offdiagonal_component(
         * The mode frequency is multiplied by the square root of the component index plus one, divided by two.
         * This value is then multiplied by the mode coupling.
 
-    Args:
-        component_index (Int[Scalar, ""]): the index of the component.
-        mode_frequency (Float[Scalar, ""]): the frequency of the mode.
-        mode_coupling (Float[Scalar, ""]): the coupling of the mode.
+    Parameters
+    ----------
+    component_index : Int[Scalar, ""]
+        the index of the component.
+    mode_frequency : Float[Scalar, ""]
+        the frequency of the mode.
+    mode_coupling : Float[Scalar, ""]
+        the coupling of the mode.
 
-    Returns:
-        Float[Scalar, ""]: the computed offdiagonal contribution component.
+    Returns
+    -------
+    Float[Scalar, ""]
+        the computed offdiagonal contribution component.
     """
     return mode_frequency * mode_coupling * jnp.sqrt((component_index + 1) / 2)
 
 
-def outer_sum(*arrays: Float[Array, "*"]) -> Float[Array, "*"]:
+def outer_sum(*arrays: tuple[Float[Array, "*"]]) -> Float[Array, "*"]:
     """
     Computes the outer sum of multiple JAX arrays.
 
@@ -398,17 +463,25 @@ def outer_sum(*arrays: Float[Array, "*"]) -> Float[Array, "*"]:
     summation instead. This is done by reshaping the arrays for broadcasting, ensuring dimensions are aligned correctly
     for the sum.
 
-    Args:
-        *arrays: Variable number of JAX array arguments. Each array should be compatible for broadcasting.
-            There should be at least one array passed to this function.
+    Parameters
+    ----------
+    *arrays: tuple[Float[Array, "*"]]
+        Variable number of JAX array arguments.
+        Each array should be compatible for broadcasting.
+        There should be at least one array passed to this function.
 
-    Returns:
+    Returns
+    -------
+    Float[Array, "*"]
         A JAX array containing the outer sum of the input arrays.
 
-    Raises:
-        ValueError: If no arrays are provided as input.
+    Raises
+    ------
+    ValueError
+        If no arrays are provided as input.
 
-    Example:
+    Example
+    -------
         >>> import jax.numpy as jnp
         >>> a = jnp.array([1, 2])
         >>> b = jnp.array([3, 4])
@@ -416,7 +489,8 @@ def outer_sum(*arrays: Float[Array, "*"]) -> Float[Array, "*"]:
         DeviceArray([[4, 5],
                      [5, 6]], dtype=int32)
 
-    Note:
+    Note
+    ----
         The function requires at least one input array and all input arrays must be compatible for broadcasting
         following the JAX rules.
     """

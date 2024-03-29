@@ -14,19 +14,29 @@ from quantumspectra_2024.absorption.mlj.MLJComputation import calculate_mlj_spec
 class MLJModel(Model):
     """A two-state two-mode MLJ model for absorption spectra.
 
-    Args:
-        start_energy (Float[Scalar, ""]): absorption spectrum's starting energy.
-        end_energy (Float[Scalar, ""]): absorption spectrum's ending energy.
-        num_points (Int[Scalar, ""]): absorption spectrum's number of points.
+    Parameters
+    ----------
+    start_energy : Float[Scalar, ""]
+        absorption spectrum's starting energy.
+    end_energy : Float[Scalar, ""]
+        absorption spectrum's ending energy.
+    num_points : Int[Scalar, ""]
+        absorption spectrum's number of points.
 
-        temperature_kelvin (Float[Scalar, ""]): system's temperature in Kelvin.
-        energy_gap (Float[Scalar, ""]): energy gap between the two states.
-        disorder_meV (Float[Scalar, ""]): disorder in the system in meV.
+    temperature_kelvin : Float[Scalar, ""]
+        system's temperature in Kelvin.
+    energy_gap : Float[Scalar, ""]
+        energy gap between the two states.
+    disorder_meV : Float[Scalar, ""]
+        disorder in the system in meV.
 
-        basis_size (Int[Scalar, ""]): size of basis set.
+    basis_size : Int[Scalar, ""]
+        size of basis set.
 
-        mode_frequencies (Float[Array, "2"]): frequency per mode.
-        mode_couplings (Float[Array, "2"]): excited state coupling per mode.
+    mode_frequencies : Float[Array, "2"]
+        frequency per mode.
+    mode_couplings : Float[Array, "2"]
+        excited state coupling per mode.
     """
 
     temperature_kelvin: Float[Scalar, ""]
@@ -43,8 +53,10 @@ class MLJModel(Model):
 
         See docs in `MLJComputation` to see how this is done.
 
-        Returns:
-            AbsorptionSpectrum: the model's parameterized absorption spectrum.
+        Returns
+        -------
+        AbsorptionSpectrum
+            the model's parameterized absorption spectrum.
         """
         # get absorption spectrum sample energies (x values)
         sample_points = jnp.linspace(
@@ -82,8 +94,10 @@ class MLJModel(Model):
         This function sorts the modes by frequency and returns the lowest and highest frequency modes.
         This is useful for the `calculate_mlj_spectrum` function, which expects the low and high frequency modes explicitly.
 
-        Returns:
-            tuple[float, float, float, float]: low frequency, low coupling, high frequency, high coupling.
+        Returns
+        -------
+        tuple[float, float, float, float]
+            low frequency, low coupling, high frequency, high coupling.
         """
         mode_frequencies = np.array(self.mode_frequencies)
         mode_couplings = np.array(self.mode_couplings)
@@ -109,13 +123,19 @@ class MLJModel(Model):
     ) -> "MLJModel":
         """Applies an electric field to the model. Returns a new instance of the model.
 
-        Args:
-            field_strength (Float[Scalar, ""]): the strength of the electric field.
-            field_delta_dipole (Float[Scalar, ""]): the change in dipole moment due to the electric field.
-            field_delta_polarizability (Float[Scalar, ""]): the change in polarizability due to the electric field.
+        Parameters
+        ----------
+        field_strength : Float[Scalar, ""]
+            the strength of the electric field.
+        field_delta_dipole : Float[Scalar, ""]
+            the change in dipole moment due to the electric field.
+        field_delta_polarizability : Float[Scalar, ""]
+            the change in polarizability due to the electric field.
 
-        Returns:
-            TwoStateModel: the model with the electric field applied.
+        Returns
+        -------
+        MLJModel
+            the model with the electric field applied.
         """
         dipole_energy_change = field_delta_dipole * field_strength * 1679.0870295
         polarizability_energy_change = (
@@ -131,8 +151,10 @@ class MLJModel(Model):
     def _verify_modes(self):
         """Verifies that the model has exactly two modes.
 
-        Raises:
-            ValueError: if the model does not have exactly two modes.
+        Raises
+        ------
+        ValueError
+            if the model does not have exactly two modes.
         """
         if len(self.mode_frequencies) != 2 or len(self.mode_couplings) != 2:
             raise ValueError("The MLJ model requires exactly two modes.")

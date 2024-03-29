@@ -16,14 +16,21 @@ def broaden_peaks(
 
     See `compute_gaussians` for more information on the Gaussian distributions.
 
-    Args:
-        sample_points (Float[Array, "num_points"]): Sample points at which the absorption spectrum will be computed.
-        peak_energies (Float[Array, "num_peaks"]): Peak energies corresponding to the center of each Gaussian distribution.
-        peak_intensities (Float[Array, "num_peaks"]): Peak intensities to scale each Gaussian distribution.
-        distribution_broadening (Float[Scalar, ""]): Standard deviation of the Gaussian distributions.
+    Parameters
+    ----------
+    sample_points : Float[Array, "num_points"]
+        Sample points at which the absorption spectrum will be computed.
+    peak_energies : Float[Array, "num_peaks"]
+        Peak energies corresponding to the center of each Gaussian distribution.
+    peak_intensities : Float[Array, "num_peaks"]
+        Peak intensities to scale each Gaussian distribution.
+    distribution_broadening : Float[Scalar, ""]
+        Standard deviation of the Gaussian distributions.
 
-    Returns:
-        Float[Array, "num_points"]: Computed absorption spectrum.
+    Returns
+    -------
+    Float[Array, "num_points"]
+        Computed absorption spectrum.
     """
     gaussians = compute_gaussians(
         sample_points=sample_points,
@@ -45,19 +52,23 @@ def compute_gaussians(
     sample points and peak energies, considering a specified distribution broadening.
     It is `jax` JIT-compiled to improve performance.
 
-    Args:
-        sample_points (Float[Array, "num_points"]): Sample points at which the Gaussian functions
-            will be evaluated. Each point represents a position on the x-axis of the Gaussian distribution.
-        peak_energies (Float[Array, "num_peaks"]): Peak energies corresponding
-            to the mean (center) of each Gaussian distribution. Each peak energy defines
-            a different Gaussian function to be evaluated at the sample points.
-        distribution_broadening (Float[Scalar, ""]): A scalar value representing the
-            standard deviation (sigma) of the Gaussian distributions, which determines
-            the broadening of the distributions. This value is the same for all
-            Gaussian distributions computed by this function.
+    Parameters
+    ----------
+    sample_points : Float[Array, "num_points"]
+        Sample points at which the Gaussian functions will be evaluated.
+        Each point represents a position on the x-axis of the Gaussian distribution.
+    peak_energies : Float[Array, "num_peaks"]
+        Peak energies corresponding to the mean (center) of each Gaussian distribution.
+        Each peak energy defines a different Gaussian function to be evaluated at the sample points.
+    distribution_broadening : Float[Scalar, ""]
+        A scalar value representing the standard deviation (sigma) of the Gaussian distributions,
+        which determines the broadening of the distributions.
+        This value is the same for all Gaussian distributions computed by this function.
 
-    Returns:
-        Float[Array, "num_points num_peaks"]: Computed Gaussian values for each combination of sample points and peak energies.
+    Returns
+    -------
+    Float[Array, "num_points num_peaks"]
+        Computed Gaussian values for each combination of sample points and peak energies.
     """
     return (1.0 / (jnp.sqrt(jnp.pi) * distribution_broadening)) * jnp.exp(
         -jnp.power(
@@ -84,8 +95,21 @@ def compute_peaks(
     First eigenvector range is 1 with 0 temperature, or 50 with non-zero temperature.
     See `filter_peaks` for more information.
 
-    Returns:
-        tuple[Float[Array, "num_peaks"], Float[Array, "num_peaks"]]: Computed absorption spectrum peak energies and intensities.
+    Parameters
+    ----------
+    eigenvalues : Float[Array, "matrix_size"]
+        Eigenvalues of the Hamiltonian.
+    eigenvectors : Float[Array, "matrix_size matrix_size"]
+        Eigenvectors of the Hamiltonian.
+    transfer_integral : Float[Scalar, ""]
+        Transfer integral between the two states.
+    temperature_kelvin : Float[Scalar, ""]
+        System's temperature in Kelvin.
+
+    Returns
+    -------
+    tuple[Float[Array, "num_peaks"], Float[Array, "num_peaks"]]
+        Computed absorption spectrum peak energies and intensities.
     """
     # compute all possible peak energies and intensities
     energies = compute_peak_energies(eigenvalues=eigenvalues)
@@ -134,8 +158,15 @@ def compute_peak_energies(
 
     Because only the first state will be used for pairs, only the first half of the differences are necessary and returned.
 
-    Returns:
-        Float[Array, "matrix_size/2 matrix_size"]: difference matrix of eigenvalues.
+    Parameters
+    ----------
+    eigenvalues : Float[Array, "matrix_size"]
+        Eigenvalues of the Hamiltonian.
+
+    Returns
+    -------
+    Float[Array, "matrix_size/2 matrix_size"]
+        difference matrix of eigenvalues.
     """
     # half the number of eigenvalues
     half_size = len(eigenvalues) // 2
@@ -165,8 +196,17 @@ def compute_peak_intensities(
         * if `transfer_integral` is not 0, the top half of the eigenvectors are used
         * if `transfer_integral` is 0, the bottom half of the eigenvectors are used
 
-    Returns:
-        Float[Array, "matrix_size/2 matrix_size"]: intensity matrix of eigenvectors.
+    Parameters
+    ----------
+    eigenvectors : Float[Array, "matrix_size matrix_size"]
+        Eigenvectors of the Hamiltonian.
+    transfer_integral : Float[Scalar, ""]
+        Transfer integral between the two states.
+
+    Returns
+    -------
+    Float[Array, "matrix_size/2 matrix_size"]
+        intensity matrix of eigenvectors.
     """
     # half the size of a dimension of the eignvectors
     half_size = len(eigenvectors) // 2
@@ -204,8 +244,17 @@ def compute_peak_probability_scalars(
     The probability scalars are returned as a vector of the same size as the first half of the eigenvalues.
     The probability scalars are used to scale the intensities of the peaks in the absorption spectrum.
 
-    Returns:
-        Float[Array, "matrix_size/2"]: probability scalars for peak intensities.
+    Parameters
+    ----------
+    eigenvalues : Float[Array, "matrix_size"]
+        Eigenvalues of the Hamiltonian.
+    temperature_wavenumbers : Float[Scalar, ""]
+        Temperature in wavenumbers.
+
+    Returns
+    -------
+    Float[Array, "matrix_size/2"]
+        probability scalars for peak intensities.
     """
     # half the number of eigenvalues
     half_size = len(eigenvalues) // 2
@@ -230,13 +279,19 @@ def filter_peaks(
     unique pair combinations between first eigenvectors in the given `first_eigenvector_range` and all other elevated energy levels.
     It also filters out negative energy or intensity values.
 
-    Args:
-        peak_energies (Float[Array, "matrix_size/2 matrix_size"]): peak energies computed by `compute_peak_energies`.
-        peak_intensities (Float[Array, "matrix_size/2 matrix_size"]): peak intensities computed by `compute_peak_intensities`.
-        first_eigenvector_range (Int[Scalar, ""]): the range of first eigenvectors to consider for pair combinations.
+    Parameters
+    ----------
+    peak_energies : Float[Array, "matrix_size/2 matrix_size"]
+        peak energies computed by `compute_peak_energies`.
+    peak_intensities : Float[Array, "matrix_size/2 matrix_size"]
+        peak intensities computed by `compute_peak_intensities`.
+    first_eigenvector_range : Int[Scalar, ""]
+        the range of first eigenvectors to consider for pair combinations.
 
-    Returns:
-        tuple[Float[Array, "num_peaks"], Float[Array, "num_peaks"]]: filtered peak energies and intensities.
+    Returns
+    -------
+    tuple[Float[Array, "num_peaks"], Float[Array, "num_peaks"]]
+        filtered peak energies and intensities.
     """
     # get upper-triangular indices starting from the first off-diagonal
     triu_indices = jnp.triu_indices(first_eigenvector_range, k=1, m=len(peak_energies))

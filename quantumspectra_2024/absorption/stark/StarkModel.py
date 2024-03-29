@@ -12,19 +12,28 @@ from quantumspectra_2024.modules.absorption import (
 class StarkModel(Model):
     """A general model for Stark absorption spectrum.
 
-    Args:
-        start_energy (Float[Scalar, ""]): absorption spectrum's starting energy.
-        end_energy (Float[Scalar, ""]): absorption spectrum's ending energy.
-        num_points (Int[Scalar, ""]): absorption spectrum's number of points.
+    Parameters
+    ----------
+    start_energy : Float[Scalar, ""]
+        absorption spectrum's starting energy.
+    end_energy : Float[Scalar, ""]
+        absorption spectrum's ending energy.
+    num_points : Int[Scalar, ""]
+        absorption spectrum's number of points.
 
-        neutral_submodel (Model): parameterized neutral submodel to use in Stark effect calculation.
+    neutral_submodel : Model
+        parameterized neutral submodel to use in Stark effect calculation.
 
-        positive_field_strength (Float[Scalar, ""]): positive strength of the electric field.
-        positive_field_sum_percent (Float[Scalar, ""]): fraction of positive field strength to use in spectrum.
-            Negative field strength is 1 - this value.
+    positive_field_strength : Float[Scalar, ""]
+        positive strength of the electric field.
+    positive_field_sum_percent : Float[Scalar, ""]
+        fraction of positive field strength to use in spectrum.
+        Negative field strength is 1 - this value.
 
-        field_delta_dipole (Float[Scalar, ""]): change in dipole moment due to electric field.
-        field_delta_polarizability (Float[Scalar, ""]): change in polarizability due to electric field.
+    field_delta_dipole : Float[Scalar, ""]
+        change in dipole moment due to electric field.
+    field_delta_polarizability : Float[Scalar, ""]
+        change in polarizability due to electric field.
     """
 
     neutral_submodel: Model
@@ -46,8 +55,10 @@ class StarkModel(Model):
 
         Then, the neutral intensities are subtracted from the charged half-sum to get the electroabsorption spectrum.
 
-        Returns:
-            AbsorptionSpectrum: the model's parameterized absorption spectrum.
+        Returns
+        -------
+        AbsorptionSpectrum
+            the model's parameterized absorption spectrum.
         """
         # get absorption spectrum sample energies (x values)
         neutral_submodel = self.get_neutral_submodel()
@@ -82,8 +93,10 @@ class StarkModel(Model):
         This method replaces the neutral submodel's point values with the Stark model's point values.
         No other changes are made to the neutral submodel.
 
-        Returns:
-            Model: the neutral submodel for Stark calculations.
+        Returns
+        -------
+        Model
+            the neutral submodel for Stark calculations.
         """
         # replace neutral submodel with own point values
         neutral_submodel = jdc.replace(
@@ -102,11 +115,15 @@ class StarkModel(Model):
         The Stark effect is applied through the Model's `apply_electric_field` method.
         Field strength is multiplied by `field_strength_scalar`, and all other values are inputted into the method exactly.
 
-        Args:
-            field_strength_scalar (Float[Scalar, ""]): scalar to multiply the field strength by.
+        Parameters
+        ----------
+        field_strength_scalar : Float[Scalar, ""]
+            scalar to multiply the field strength by.
 
-        Returns:
-            Model: the charged submodel for Stark calculations.
+        Returns
+        -------
+        Model
+            the charged submodel for Stark calculations.
         """
         # get neutral submodel
         neutral_submodel = self.get_neutral_submodel()
@@ -127,7 +144,9 @@ class StarkModel(Model):
     def apply_electric_field(*_) -> None:
         """Applies an electric field to the model. Stark effect is not configured to apply external electric fields.
 
-        Raises:
-            NotImplementedError: StarkModel does not support apply_electric_field.
+        Raises
+        ------
+        NotImplementedError
+            StarkModel does not support apply_electric_field.
         """
         raise NotImplementedError("StarkModel does not support apply_electric_field")

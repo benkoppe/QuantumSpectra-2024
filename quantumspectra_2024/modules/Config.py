@@ -20,9 +20,12 @@ def save_spectrum_from_config(config: dict, spectrum: AbsorptionSpectrum) -> Non
 
     Currently configured to save absorption spectrum data and plot to CSV and PNG files, respectively.
 
-    Args:
-        config (dict): the configuration dict.
-        spectrum (AbsorptionSpectrum): the absorption spectrum to save.
+    Parameters
+    ----------
+    config : dict
+        the configuration dict.
+    spectrum : AbsorptionSpectrum
+        the absorption spectrum to save.
     """
     out_data = config[OUT_CONFIG_NAME]
     overwrite = out_data["overwrite"]
@@ -47,15 +50,22 @@ def save_spectrum_from_config(config: dict, spectrum: AbsorptionSpectrum) -> Non
 def save_file(filename: str, overwrite: bool, save_func: Callable[[str], None]) -> None:
     """Checks if a file can be saved and then saves it using a save function.
 
-    Args:
-        filename (str): the filename to save to.
-        overwrite (bool): whether to overwrite the file if it already exists.
-        save_func (Callable[[str], None]): the function to use to save the file.
-            Function expects a single string argument containing the path to save to.
+    Parameters
+    ----------
+    filename : str
+        the filename to save to.
+    overwrite : bool
+        whether to overwrite the file if it already exists.
+    save_func : Callable[[str], None]
+        The function to use to save the file.
+        Function expects a single string argument containing the path to save to.
 
-    Raises:
-        ValueError: if the parent directory of the save file does not exist.
-        ValueError: if the save file already exists and overwrite is set to False.
+    Raises
+    ------
+    ValueError
+        if the parent directory of the save file does not exist.
+    ValueError
+        if the save file already exists and overwrite is set to False.
     """
     file = Path(filename)
 
@@ -82,15 +92,22 @@ def initialize_absorption_from_config(
     Model subdicts are treated as submodels and are recursively initialized.
     This is useful for models that have submodels as attributes, such as `StarkModel`.
 
-    Args:
-        config (dict): the configuration dict.
-        str_to_model (dict[str, Type[AbsorptionModel]]): a dict mapping model names to model classes.
+    Parameters
+    ----------
+    config : dict
+        the configuration dict.
+    str_to_model dict[str, Type[AbsorptionModel]]
+        a dict mapping model names to model classes.
 
-    Raises:
-        ValueError: if the model name is not found in `str_to_model`.
+    Raises
+    ------
+    ValueError
+        if the model name is not found in `str_to_model`.
 
-    Returns:
-        AbsorptionModel: the initialized absorption model.
+    Returns
+    -------
+    AbsorptionModel
+        the initialized absorption model.
     """
     model_config = config[MODEL_CONFIG_NAME]
     model_name = model_config[MODEL_NAME_KEY]
@@ -120,11 +137,15 @@ def initialize_absorption_from_config(
 def parse_config(program_description: str) -> dict:
     """Parse and validate a configuration dict for absorption spectrum computation from script arguments.
 
-    Args:
-        program_description (str): the program description for the argument parser.
+    Parameters
+    ----------
+    program_description : str
+        the program description for the argument parser.
 
-    Returns:
-        dict: the absorption spectrum computation configuration dict."""
+    Returns
+    -------
+    dict
+        the absorption spectrum computation configuration dict."""
     parser = ArgumentParser(description=program_description)
 
     parser.add_argument(CONFIG_ARG_NAME, type=str, help=CONFIG_ARG_HELP)
@@ -141,8 +162,15 @@ def parse_config(program_description: str) -> dict:
 def validate_config(data: dict) -> None:
     """Validates an absorption spectrum computation configuration dict.
 
-    Args:
-        data (dict): the configuration dict to validate.
+    Parameters
+    ----------
+    data : dict
+        the configuration dict to validate.
+
+    Raises
+    ------
+    ValueError
+        if the config is not valid.
     """
     # check for required keys
     required_keys = [MODEL_CONFIG_NAME, OUT_CONFIG_NAME]
@@ -161,13 +189,19 @@ def validate_config(data: dict) -> None:
 def ensure_keys_included(data: dict, keys: list, key_type: str) -> None:
     """Ensures that a list of required keys are included in a data dict.
 
-    Args:
-        data (dict): the data dict to check.
-        keys (list): the list of required keys.
-        key_type (str): the type of data dict being checked.
+    Parameters
+    ----------
+    data : dict
+        the data dict to check.
+    keys : list
+        the list of required keys.
+    key_type : str
+        the type of data dict being checked.
 
-    Raises:
-        ValueError: if a required key is not found in the data dict.
+    Raises
+    ------
+    ValueError
+        if a required key is not found in the data dict.
     """
     for key in keys:
         if key not in data:

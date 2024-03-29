@@ -11,14 +11,21 @@ from quantumspectra_2024.modules.hamiltonian.HamiltonianComputation import (
 class HamiltonianModel:
     """A hamiltonian model for a quantum system.
 
-    Args:
-        transfer_integral (Float[Scalar, ""]): transfer integral between states.
-        state_energies (Float[Array, "num_states"]): energies of each state.
+    Attributes
+    ----------
+    transfer_integral : Float[Scalar, ""]
+        transfer integral between states.
+    state_energies : Float[Array, "num_states"]
+        energies of each state.
 
-        mode_basis_sets (Int[Array, "num_modes"]): basis set size per mode.
-        mode_localities (Bool[Array, "num_modes"]): whether each mode is local.
-        mode_frequencies (Float[Array, "num_modes"]): frequency per mode.
-        mode_state_couplings (Float[Array, "num_modes num_states"]): coupling per mode and state.
+    mode_basis_sets : Int[Array, "num_modes"]
+        basis set size per mode.
+    mode_localities : Bool[Array, "num_modes"]
+        whether each mode is local.
+    mode_frequencies : Float[Array, "num_modes"]
+        frequency per mode.
+    mode_state_couplings : Float[Array, "num_modes num_states"]
+        coupling per mode and state.
     """
 
     transfer_integral: Float[Scalar, ""]
@@ -38,8 +45,10 @@ class HamiltonianModel:
         First computes the Hamiltonian matrix, then diagonalizes it.
         See docs in `HamiltonianComputation` to see how this is done.
 
-        Returns:
-            tuple[Float[Array, "matrix_size"], Float[Array, "matrix_size matrix_size"]]: tuple containing the eigenvalues and eigenvectors in `jax` arrays.
+        Returns
+        -------
+        tuple[Float[Array, "matrix_size"], Float[Array, "matrix_size matrix_size"]]
+            tuple containing the eigenvalues and eigenvectors in `jax` arrays.
         """
         # build matrix
         matrix = self.get_matrix()
@@ -54,8 +63,10 @@ class HamiltonianModel:
 
         See docs in `HamiltonianComputation` to see how this is done.
 
-        Returns:
-            Float[Array, "matrix_size matrix_size"]: fully constructed matrix in `jax` array.
+        Returns
+        -------
+        Float[Array, "matrix_size matrix_size"]
+            fully constructed matrix in `jax` array.
         """
         return build_matrix(
             mode_basis_sets=self.mode_basis_sets,
