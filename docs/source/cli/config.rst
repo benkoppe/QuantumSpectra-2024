@@ -10,6 +10,44 @@ Config files contain all of the information needed to generate a model's absorpt
 
 This page details the structure of config files, and provides an example config file.
 
+Config File Samples
+----------------------
+
+Each Model has a sample config file provided.
+These files can be found in the `sample configs <https://github.com/benkoppe/QuantumSpectra-2024/tree/main/sample_configs>`_ directory on GitHub.
+
+The documentation for each Model also has specific information about the details of its config file.
+
+
+Example Config File
+----------------------
+
+Here, a full example of a config file is provided. 
+This config file describes a two-state model, and saves output data and plot files.
+
+.. code-block:: toml
+
+    out.filename = "two_state_output" # output files will be named "two_state_output.csv" and "two_state_output.png"
+    out.data = true # output data to a csv file
+    out.plot = true # output a plot
+    out.overwrite = true
+
+    model.name = "two_state" # use the two-state model
+
+    # skip describing model start and end energy, and number of points, as they have default values
+
+    model.temperature_kelvin = 300 # temperature in Kelvin
+    model.broadening = 200 # broadening in wavenumbers
+
+    model.transfer_integral = 100 # transfer integral
+    model.energy_gap = 8000 # energy gap in wavenumbers
+
+    model.mode_basis_sets = [20, 200] # number of basis functions for each mode
+    model.mode_frequencies = [1200, 100] # frequency of each mode in wavenumbers
+    model.mode_couplings = [0.7, 2.0] # coupling of each mode with excited state
+
+This config file can be run with the ``qs_2024`` cli script.
+
 Tables
 ------
 
@@ -114,41 +152,3 @@ For example:
 
 .. note::
     The ``submodel_parameter_name`` is the name of the submodel parameter in the model, in the same way that other parameters exactly match the parameter name in the model.
-
-
-Example Config File
-----------------------
-
-Here, a full example of a config file is provided. 
-This config file describes a two-state model, and saves output data and plot files.
-
-.. code-block:: toml
-
-    out.filename = "two_state_output" # output files will be named "two_state_output.csv" and "two_state_output.png"
-    out.data = true # output data to a csv file
-    out.plot = true # output a plot
-    out.overwrite = true
-
-    model.name = "two_state" # use the two-state model
-
-    # skip describing model start and end energy, and number of points, as they have default values
-
-    model.temperature_kelvin = 300 # temperature in Kelvin
-    model.broadening = 200 # broadening in wavenumbers
-
-    model.transfer_integral = 100 # transfer integral
-    model.energy_gap = 8000 # energy gap in wavenumbers
-
-    model.mode_basis_sets = [20, 200] # number of basis functions for each mode
-    model.mode_frequencies = [1200, 100] # frequency of each mode in wavenumbers
-    model.mode_couplings = [0.7, 2.0] # coupling of each mode with excited state
-
-This config file can be run with the ``qs_2024`` cli script.
-
-Config File Samples
-----------------------
-
-Each Model has a sample config file provided.
-These files can be found in the `sample configs <https://github.com/benkoppe/QuantumSpectra-2024/tree/main/sample_configs>`_ directory on GitHub.
-
-The documentation for each Model also has specific information about the details of its config file.
