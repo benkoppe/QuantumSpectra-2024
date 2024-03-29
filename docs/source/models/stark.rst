@@ -121,6 +121,8 @@ CLI Usage
         model.neutral_submodel.mode_frequencies = [1200, 100]
         model.neutral_submodel.mode_couplings = [0.7, 2.0]
 
+    More information on Config files can be found on the :doc:`../cli/config` page.
+
 #. Then, run the absorption spectrum command with the path to your config file.
 
     .. code-block:: bash
