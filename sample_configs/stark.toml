@@ -14,6 +14,8 @@ model.num_points = 2001
 
 # model-specific parameters
 model.positive_field_strength = 0.01
+model.positive_field_sum_percent = 0.5
+
 model.field_delta_dipole = 38
 model.field_delta_polarizability = 1000
 
@@ -26,6 +28,6 @@ model.neutral_submodel.broadening = 200
 model.neutral_submodel.transfer_integral = 100
 model.neutral_submodel.energy_gap = 8000
 
-model.neutral_submodel.mode_basis_sets = [20, 50]
+model.neutral_submodel.mode_basis_sets = [20, 200]
 model.neutral_submodel.mode_frequencies = [1200, 100]
 model.neutral_submodel.mode_couplings = [0.7, 2.0]
