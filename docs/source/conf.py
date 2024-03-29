@@ -38,12 +38,14 @@ exclude_patterns = []
 
 pygments_style = "sphinx"
 
+autodoc_member_order = "bysource"
+
 autosummary_generate = True
 
 # autoclass_content = "class"
 
-# numpydoc_show_class_members = False
-numpydoc_show_inherited_class_members = True
+numpydoc_show_class_members = True
+numpydoc_class_members_toctree = False
 # numpydoc_xref_param_type = True
 # numpydoc_xref_aliases = {
 
