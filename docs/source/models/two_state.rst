@@ -16,6 +16,19 @@ More details on the vibronic hamiltonian portion of this process can be seen in 
 
 More details on the peak points and peak broadening portion of this process can be seen in the :ref:`Hamiltonian Computation Docs <hamiltonian-model-computation>`.
 
+Model Name
+----------------
+In **config files**, this Model is named ``two-state``. This can be specified in ``your-config.toml`` with:
+
+.. code-block:: toml
+    
+    model.name = "two-state"
+
+In the **package**, this Model is named ``TwoStateModel``. This can be imported with:
+
+.. code-block:: python
+
+    from quantumspectra_2024.absorption import TwoStateModel
 
 Parameters
 ----------------
@@ -65,14 +78,6 @@ By default, all Models generate 2,001 points between 0 and 20,000 wavenumbers.
     TwoStateModel.end_energy
     TwoStateModel.num_points
 
-
-Config
-----------------
-In config files, this Model is named ``two-state``. This can be specified in ``your-config.toml`` with:
-
-.. code-block:: toml
-    
-    model.name = "two-state"
 
 Examples
 ----------------
