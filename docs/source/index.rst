@@ -25,21 +25,18 @@ To get started, read the :doc:`insallation guide <startup/installation>`.
    :caption: Models
 
    models/two_state
+   models/stark
 
 .. toctree:: 
    :maxdepth: 1
    :caption: Computation Information
 
    computation/two_state_computation
+   computation/stark_computation
 
 .. toctree::
    :maxdepth: 1
-   :caption: CLI Information
+   :caption: Additional Information
 
    cli/config
-
-.. toctree:: 
-   :maxdepth: 1
-   :caption: Package Information
-
    package/absorption_spectrum
