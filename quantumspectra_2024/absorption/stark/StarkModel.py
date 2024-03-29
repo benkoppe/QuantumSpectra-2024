@@ -15,11 +15,11 @@ class StarkModel(Model):
     Parameters
     ----------
     start_energy : Float[Scalar, ""]
-        absorption spectrum's starting energy.
+        absorption spectrum's starting energy (wavenumbers).
     end_energy : Float[Scalar, ""]
-        absorption spectrum's ending energy.
+        absorption spectrum's ending energy (wavenumbers).
     num_points : Int[Scalar, ""]
-        absorption spectrum's number of points.
+        absorption spectrum's number of points (unitless).
 
     neutral_submodel : Model
         parameterized neutral submodel to use in Stark effect calculation.
@@ -27,8 +27,8 @@ class StarkModel(Model):
     positive_field_strength : Float[Scalar, ""]
         positive strength of the electric field.
     positive_field_sum_percent : Float[Scalar, ""]
-        fraction of positive field strength to use in spectrum.
-        Negative field strength is 1 - this value.
+        fraction of positive field strength to use in spectrum (decimal).
+        negative field strength is 1 - this value.
 
     field_delta_dipole : Float[Scalar, ""]
         change in dipole moment due to electric field.
@@ -36,12 +36,17 @@ class StarkModel(Model):
         change in polarizability due to electric field.
     """
 
+    #: Model: parameterized neutral submodel to use in Stark effect calculation.
     neutral_submodel: Model
 
+    #: Float[Scalar, ""]: positive strength of the electric field.
     positive_field_strength: Float[Scalar, ""]
+    #: Float[Scalar, ""]: fraction of positive field strength to use in spectrum (decimal).
     positive_field_sum_percent: Float[Scalar, ""] = 0.5
 
+    #: Float[Scalar, ""]: change in dipole moment due to electric field.
     field_delta_dipole: Float[Scalar, ""]
+    #: Float[Scalar, ""]: change in polarizability due to electric field.
     field_delta_polarizability: Float[Scalar, ""]
 
     def get_absorption(self) -> AbsorptionSpectrum:

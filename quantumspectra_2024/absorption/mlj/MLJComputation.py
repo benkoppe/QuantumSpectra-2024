@@ -17,8 +17,9 @@ def calculate_mlj_spectrum(
 ) -> Float[Array, "num_points"]:
     """Computes an MLJ semiclassical absorption spectrum.
 
-    Todo
-    ----
+    Notes
+    -----
+    TODO:
     * Add more detailed implemention description.
 
     Parameters

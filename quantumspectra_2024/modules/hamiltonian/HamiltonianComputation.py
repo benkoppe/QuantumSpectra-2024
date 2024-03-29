@@ -37,8 +37,9 @@ def build_matrix(
     States along the diagonal are so-called 'local' states, while offdiagonal states are 'nonlocal'.
     See documentation for `build_local_state_block` and `build_nonlocal_state_block` for more information.
 
-    Todo
-    ----
+    Notes
+    -----
+    TODO:
     * Implement multiple transfer integrals for more than two states.
 
     Parameters
@@ -480,8 +481,8 @@ def outer_sum(*arrays: tuple[Float[Array, "*"]]) -> Float[Array, "*"]:
     ValueError
         If no arrays are provided as input.
 
-    Example
-    -------
+    Examples
+    --------
         >>> import jax.numpy as jnp
         >>> a = jnp.array([1, 2])
         >>> b = jnp.array([3, 4])
@@ -489,8 +490,8 @@ def outer_sum(*arrays: tuple[Float[Array, "*"]]) -> Float[Array, "*"]:
         DeviceArray([[4, 5],
                      [5, 6]], dtype=int32)
 
-    Note
-    ----
+    Notes
+    -----
         The function requires at least one input array and all input arrays must be compatible for broadcasting
         following the JAX rules.
     """

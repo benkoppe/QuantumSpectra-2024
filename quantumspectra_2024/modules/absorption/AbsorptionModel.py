@@ -16,18 +16,18 @@ class AbsorptionModel(ABC):
     Parameters
     ----------
     start_energy : Float[Scalar, ""]
-        absorption spectrum's starting energy.
+        absorption spectrum's starting energy (wavenumbers).
     end_energy : Float[Scalar, ""]
-        absorption spectrum's ending energy.
+        absorption spectrum's ending energy (wavenumbers).
     num_points : Int[Scalar, ""]
-        absorption spectrum's number of points.
+        absorption spectrum's number of points (unitless).
     """
 
-    #: Float[Scalar, ""]: absorption spectrum's starting energy.
+    #: Float[Scalar, ""]: absorption spectrum's starting energy (wavenumbers).
     start_energy: jdc.Static[Float[Scalar, ""]] = 0.0
-    #: Float[Scalar, ""]: absorption spectrum's ending energy.
+    #: Float[Scalar, ""]: absorption spectrum's ending energy (wavenumbers).
     end_energy: jdc.Static[Float[Scalar, ""]] = 20_000.0
-    #: Int[Scalar, ""]: absorption spectrum's number of points.
+    #: Int[Scalar, ""]: absorption spectrum's number of points (unitless).
     num_points: jdc.Static[Int[Scalar, ""]] = 2_001
 
     @abstractmethod

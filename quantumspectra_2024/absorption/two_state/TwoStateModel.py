@@ -20,43 +20,43 @@ class TwoStateModel(Model):
     Parameters
     ----------
     start_energy : Float[Scalar, ""]
-        absorption spectrum's starting energy.
+        absorption spectrum's starting energy (wavenumbers).
     end_energy : Float[Scalar, ""]
-        absorption spectrum's ending energy.
+        absorption spectrum's ending energy (wavenumbers).
     num_points : Int[Scalar, ""]
-        absorption spectrum's number of points.
+        absorption spectrum's number of points (unitless).
 
     broadening : Float[Scalar, ""]
-        absorption spectrum broadening factor.
+        absorption spectrum broadening factor (wavenumbers).
     temperature_kelvin : Float[Scalar, ""]
-        system's temperature in Kelvin.
+        system's temperature (Kelvin).
 
     transfer_integral : Float[Scalar, ""]
         transfer integral between the two states.
     energy_gap : Float[Scalar, ""]
-        energy gap between the two states.
+        energy gap between the two states (wavenumbers).
 
     mode_basis_sets : Int[Array, "num_modes"]
-        basis set size per mode.
+        basis set size per mode (unitless).
     mode_frequencies : Float[Array, "num_modes"]
-        frequency per mode.
+        frequency per mode (wavenumbers).
     mode_couplings : Float[Array, "num_modes"]
         excited state coupling per mode.
     """
 
-    #: Float[Scalar, ""]: absorption spectrum broadening factor.
+    #: Float[Scalar, ""]: absorption spectrum broadening factor (wavenumbers).
     broadening: Float[Scalar, ""]
-    #: Float[Scalar, ""]: system's temperature in Kelvin.
+    #: Float[Scalar, ""]: system's temperature (Kelvin).
     temperature_kelvin: Float[Scalar, ""]
 
     #: Float[Scalar, ""]: transfer integral between the two states.
     transfer_integral: Float[Scalar, ""]
-    #: Float[Scalar, ""]: energy gap between the two states.
+    #: Float[Scalar, ""]: energy gap between the two states (wavenumbers).
     energy_gap: Float[Scalar, ""]
 
-    #: Float[Array, "num_modes"]: basis set size per mode.
+    #: Float[Array, "num_modes"]: basis set size per mode (unitless).
     mode_basis_sets: jdc.Static[Int[Array, "num_modes"]]
-    #: Float[Array, "num_modes"]: frequency per mode.
+    #: Float[Array, "num_modes"]: frequency per mode (wavenumbers).
     mode_frequencies: Float[Array, "num_modes"]
     #: Float[Array, "num_modes"]: excited state coupling per mode.
     mode_couplings: Float[Array, "num_modes"]

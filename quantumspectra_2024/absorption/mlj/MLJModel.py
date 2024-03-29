@@ -17,35 +17,41 @@ class MLJModel(Model):
     Parameters
     ----------
     start_energy : Float[Scalar, ""]
-        absorption spectrum's starting energy.
+        absorption spectrum's starting energy (wavenumbers).
     end_energy : Float[Scalar, ""]
-        absorption spectrum's ending energy.
+        absorption spectrum's ending energy (wavenumbers).
     num_points : Int[Scalar, ""]
-        absorption spectrum's number of points.
+        absorption spectrum's number of points (unitless).
 
     temperature_kelvin : Float[Scalar, ""]
-        system's temperature in Kelvin.
+        system's temperature (Kelvin).
     energy_gap : Float[Scalar, ""]
-        energy gap between the two states.
+        energy gap between the two states (wavenumbers).
     disorder_meV : Float[Scalar, ""]
-        disorder in the system in meV.
+        disorder in the system (meV).
 
     basis_size : Int[Scalar, ""]
-        size of basis set.
+        size of basis set (unitless).
 
     mode_frequencies : Float[Array, "2"]
-        frequency per mode.
+        frequency per mode (wavenumbers).
     mode_couplings : Float[Array, "2"]
         excited state coupling per mode.
     """
 
+    #: Float[Scalar, ""]: system's temperature (Kelvin).
     temperature_kelvin: Float[Scalar, ""]
+    #: Float[Scalar, ""]: energy gap between the two states (wavenumbers).
     energy_gap: Float[Scalar, ""]
+    #: Float[Scalar, ""]: disorder in the system (meV).
     disorder_meV: Float[Scalar, ""]
 
+    #: Int[Scalar, ""]: size of basis set (unitless).
     basis_size: jdc.Static[Int[Scalar, ""]] = 20
 
+    #: Float[Array, "2"]: frequency per mode (wavenumbers).
     mode_frequencies: Float[Array, "2"]
+    #: Float[Array, "2"]: excited state coupling per mode.
     mode_couplings: Float[Array, "2"]
 
     def get_absorption(self) -> AbsorptionSpectrum:
