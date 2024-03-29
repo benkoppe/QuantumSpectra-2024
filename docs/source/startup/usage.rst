@@ -3,12 +3,12 @@ Usage
 
 Once installed (see :doc:`/startup/installation`), QS-2024 can be used in two ways:
 
-* As a simple command line script, which requires no Python programming and outputs results as files.
+* As a command line script (CLI), which requires no Python programming and outputs results as files.
 * As a Python package, which allows for more complex workflows and custom analysis.
 
 Both of these methods are described below.
 
-.. note:: 
+.. warning:: 
     Before using QS-2024, don't forget to activate the virtual environment where it was installed!
 
     .. code-block:: bash
@@ -16,8 +16,8 @@ Both of these methods are described below.
         source /path/to/venv/bin/activate
 
 
-Using QS-2024 from the command line
---------------------------------------
+Running from the command line (CLI)
+------------------------------------------
 
 QS-2024 can be run using config files from the command line.
 
@@ -29,7 +29,7 @@ QS-2024 can be run using config files from the command line.
     Example configs for each model can be found in the `sample configs <https://github.com/benkoppe/QuantumSpectra-2024/tree/main/sample_configs>`_ directory on GitHub.
     Create a config file for the model you want to run, and fill in the necessary fields.
 
-    More information about config files can be found at: TODO
+    More information about config files can be found on the :doc:`../cli/config` page.
 
 #. **Run the model**
 
@@ -45,7 +45,53 @@ QS-2024 can be run using config files from the command line.
 *That's it!*
 That's all you need to do to run a QS-2024 model from the command line.
 
-Using QS-2024 as a package
+Using as a package
 ---------------------------------
 
-TODO
+QS-2024 can be run as a package from Python programs or Jupyter notebooks.
+
+#. **Import the package**
+
+    Import models from the package. An asterisk imports all models, or a specific model can be specified.
+    To see specific model names, see the Model documentation. 
+
+    .. code-block:: python
+
+        from quantumspectra_2024.absorption import *
+
+#. **Initialize a Model object**
+
+    Create a model object by calling the model's constructor with all parameters specified:
+
+    .. code-block:: python
+
+        model = ModelName(param1=value1, param2=value2, ...)
+
+#. **Call the model's** ``get_absorption()`` **method**
+
+    All models come with a ``get_absorption()`` method that calculates the absorption spectrum and returns it as a ``AbsorptionSpectrum`` object.
+
+    .. code-block:: python
+
+        spectrum = model.get_absorption()
+
+    This will return an ``AbsorptionSpectrum`` instance to the ``spectrum`` variable.
+    Details on the ``AbsorptionSpectrum`` class can be found in the :doc:`Absorption Spectrum Docs <../package/absorption_spectrum>`.
+
+    Accessing spectrum data:
+
+    .. code-block:: python
+
+        x, y = spectrum.energies, spectrum.intensities
+        print(x)
+        print(y)
+
+    Saving spectrum data:
+
+    .. code-block:: python
+
+        spectrum.save_data("path/to/output/file.csv")
+        spectrum.save_plot("path/to/output/plot.png")
+
+*That's it!*
+That's all you need to do to run a QS-2024 model from Python.

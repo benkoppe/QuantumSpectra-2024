@@ -64,6 +64,7 @@ Install QS-2024
 
 
     This will install all dependencies, the QS-2024 package, and the command line interface.
+    Everything is now installed! You're ready to proceed to :doc:`usage`.
 
 
 Update QS-2024
