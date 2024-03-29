@@ -5,9 +5,7 @@ from quantumspectra_2024.modules.Config import (
 )
 from quantumspectra_2024.modules.absorption import AbsorptionModel, AbsorptionSpectrum
 
-from quantumspectra_2024.absorption.two_state import TwoStateModel
-from quantumspectra_2024.absorption.mlj import MLJModel
-from quantumspectra_2024.absorption.stark import StarkModel
+from quantumspectra_2024.absorption import TwoStateModel, MLJModel, StarkModel
 
 
 def main():
