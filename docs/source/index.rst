@@ -25,6 +25,7 @@ To get started, read the :doc:`insallation guide <startup/installation>`.
    :caption: Models
 
    models/two_state
+   models/mlj
    models/stark
 
 .. toctree:: 
@@ -32,6 +33,7 @@ To get started, read the :doc:`insallation guide <startup/installation>`.
    :caption: Computation Information
 
    computation/two_state_computation
+   computation/mlj_computation
    computation/stark_computation
 
 .. toctree::
