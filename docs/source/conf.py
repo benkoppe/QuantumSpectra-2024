@@ -31,10 +31,18 @@ extensions = [
     "sphinx_copybutton",
     "sphinx.ext.autosummary",
     # "autoapi.extension",
+    "sphinx.ext.autosectionlabel",
+    "sphinx.ext.inheritance_diagram",
+    "nbsphinx",
 ]
 
 templates_path = ["_templates"]
-exclude_patterns = []
+exclude_patterns = [
+    # Sometimes sphinx reads its own outputs as inputs!
+    "build/html",
+    "README.md",
+    "_build",
+]
 
 pygments_style = "sphinx"
 
@@ -50,6 +58,8 @@ numpydoc_class_members_toctree = False
 # numpydoc_xref_aliases = {
 
 # }
+
+autosectionlabel_prefix_document = True
 
 autoapi_dirs = ["../../quantumspectra_2024"]
 
