@@ -17,6 +17,9 @@ matplotlib = "^3.8.3"
 [tool.poetry.group.dev.dependencies]
 ipykernel = "^6.29.3"
 pytest = "^8.1.1"
+
+
+[tool.poetry.group.docs.dependencies]
 sphinx = "^7.2.6"
 sphinx-rtd-theme = "^2.0.0"
 sphinx-autodoc-typehints = "^2.0.0"
@@ -25,6 +28,8 @@ docutils = "^0.20.1"
 sphinx-copybutton = "^0.5.2"
 numpydoc = "^1.6.0"
 sphinx-autoapi = "^3.0.0"
+nbsphinx = "^0.9.3"
+
 
 [tool.poetry.scripts]
 qs_2024 = "quantumspectra_2024.scripts.qs_2024:main"
