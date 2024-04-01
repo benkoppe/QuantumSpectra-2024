@@ -30,7 +30,7 @@ Install QS-2024
 
         mkdir qs-2024
 
-    This will create a new directory called ``qs-2024``. Next, call:
+    This will create a new directory called ``qs-2024``. Next, run:
 
     .. code-block:: bash
 
@@ -66,6 +66,7 @@ Install QS-2024
     This will install all dependencies, the QS-2024 package, and the command line interface.
     Everything is now installed! You're ready to proceed to :doc:`usage`.
 
+---------
 
 Update QS-2024
 ------------------------------
