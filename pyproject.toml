@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "quantumspectra-2024"
-version = "0.1.4"
+version = "0.1.5"
 description = "generates absorption spectra for donor-acceptor quantum systems"
 authors = ["benkoppe <bentastic1@gmail.com>"]
 readme = "README.md"
