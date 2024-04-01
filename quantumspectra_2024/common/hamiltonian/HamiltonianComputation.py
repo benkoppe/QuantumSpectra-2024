@@ -424,7 +424,7 @@ def calculate_mode_local_diagonal_component(
     float
         the computed diagonal contribution component.
     """
-    return mode_frequency * ((component_index + (1 / 2)) + (mode_coupling**2) / 2)
+    return mode_frequency * ((component_index + 0.5) + (mode_coupling**2))
 
 
 def calculate_mode_offdiagonal_component(
@@ -452,7 +452,7 @@ def calculate_mode_offdiagonal_component(
     float
         the computed offdiagonal contribution component.
     """
-    return mode_frequency * mode_coupling * jnp.sqrt((component_index + 1) / 2)
+    return mode_frequency * mode_coupling * jnp.sqrt(component_index + 1)
 
 
 def outer_sum(*arrays: tuple[Float[Array, "*"]]) -> Float[Array, "*"]:
