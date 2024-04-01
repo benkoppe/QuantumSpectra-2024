@@ -1,4 +1,4 @@
-QuantumSpectra-2024 Documentation
+QuantumSpectra-2024
 ===============================================
 
 Welcome to the documentation for QuantumSpectra-2024, or **QS-2024** for short.
@@ -42,3 +42,4 @@ To get started, read the :doc:`insallation guide <startup/installation>`.
 
    cli/config
    package/absorption_spectrum
+   jaxtyping
