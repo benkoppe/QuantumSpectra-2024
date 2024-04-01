@@ -1,9 +1,10 @@
 import jax_dataclasses as jdc
-from jaxtyping import Float, Int, Scalar
 
 from abc import ABC, abstractmethod
 
-from quantumspectra_2024.modules.absorption.AbsorptionSpectrum import AbsorptionSpectrum
+from quantumspectra_2024.common.absorption.AbsorptionSpectrum import (
+    AbsorptionSpectrum,
+)
 
 
 @jdc.pytree_dataclass(kw_only=True)
@@ -15,20 +16,20 @@ class AbsorptionModel(ABC):
 
     Parameters
     ----------
-    start_energy : Float[Scalar, ""]
+    start_energy : float
         absorption spectrum's starting energy (wavenumbers).
-    end_energy : Float[Scalar, ""]
+    end_energy : float
         absorption spectrum's ending energy (wavenumbers).
-    num_points : Int[Scalar, ""]
+    num_points : int
         absorption spectrum's number of points (unitless).
     """
 
-    #: Float[Scalar, ""]: absorption spectrum's starting energy (wavenumbers).
-    start_energy: jdc.Static[Float[Scalar, ""]] = 0.0
-    #: Float[Scalar, ""]: absorption spectrum's ending energy (wavenumbers).
-    end_energy: jdc.Static[Float[Scalar, ""]] = 20_000.0
-    #: Int[Scalar, ""]: absorption spectrum's number of points (unitless).
-    num_points: jdc.Static[Int[Scalar, ""]] = 2_001
+    #: absorption spectrum's starting energy (wavenumbers).
+    start_energy: float = 0.0
+    #: absorption spectrum's ending energy (wavenumbers).
+    end_energy: float = 20_000.0
+    #: absorption spectrum's number of points (unitless).
+    num_points: int = 2_001
 
     @abstractmethod
     def get_absorption(self) -> AbsorptionSpectrum:
@@ -43,19 +44,19 @@ class AbsorptionModel(ABC):
 
     @abstractmethod
     def apply_electric_field(
-        field_strength: Float[Scalar, ""],
-        field_delta_dipole: Float[Scalar, ""],
-        field_delta_polarizability: Float[Scalar, ""],
+        field_strength: float,
+        field_delta_dipole: float,
+        field_delta_polarizability: float,
     ) -> "AbsorptionModel":
         """Applies an electric field to the model. Returns a new instance of the model.
 
         Parameters
         ----------
-        field_strength : Float[Scalar, ""]
+        field_strength : float
             the strength of the electric field.
-        field_delta_dipole : Float[Scalar, ""]
+        field_delta_dipole : float
             the change in dipole moment due to the electric field.
-        field_delta_polarizability : Float[Scalar, ""]
+        field_delta_polarizability : float
             the change in polarizability due to the electric field.
 
         Returns

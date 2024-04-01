@@ -1,8 +1,7 @@
 import jax.numpy as jnp
 import jax_dataclasses as jdc
-from jaxtyping import Float, Scalar
 
-from quantumspectra_2024.modules.absorption import (
+from quantumspectra_2024.common.absorption import (
     AbsorptionModel as Model,
     AbsorptionSpectrum,
 )
@@ -14,40 +13,40 @@ class StarkModel(Model):
 
     Parameters
     ----------
-    start_energy : Float[Scalar, ""]
+    start_energy : float
         absorption spectrum's starting energy (wavenumbers).
-    end_energy : Float[Scalar, ""]
+    end_energy : float
         absorption spectrum's ending energy (wavenumbers).
-    num_points : Int[Scalar, ""]
+    num_points : int
         absorption spectrum's number of points (unitless).
 
     neutral_submodel : Model
         parameterized neutral submodel to use in Stark effect calculation.
 
-    positive_field_strength : Float[Scalar, ""]
+    positive_field_strength : float
         positive strength of the electric field.
-    positive_field_sum_percent : Float[Scalar, ""]
+    positive_field_sum_percent : float
         fraction of positive field strength to use in spectrum (decimal).
         negative field strength is 1 - this value.
 
-    field_delta_dipole : Float[Scalar, ""]
+    field_delta_dipole : float
         change in dipole moment due to electric field.
-    field_delta_polarizability : Float[Scalar, ""]
+    field_delta_polarizability : float
         change in polarizability due to electric field.
     """
 
-    #: Model: parameterized neutral submodel to use in Stark effect calculation.
+    #: parameterized neutral submodel to use in Stark effect calculation.
     neutral_submodel: Model
 
-    #: Float[Scalar, ""]: positive strength of the electric field.
-    positive_field_strength: Float[Scalar, ""]
-    #: Float[Scalar, ""]: fraction of positive field strength to use in spectrum (decimal).
-    positive_field_sum_percent: Float[Scalar, ""] = 0.5
+    #: positive strength of the electric field.
+    positive_field_strength: float
+    #: fraction of positive field strength to use in spectrum (decimal).
+    positive_field_sum_percent: float = 0.5
 
-    #: Float[Scalar, ""]: change in dipole moment due to electric field.
-    field_delta_dipole: Float[Scalar, ""]
-    #: Float[Scalar, ""]: change in polarizability due to electric field.
-    field_delta_polarizability: Float[Scalar, ""]
+    #: change in dipole moment due to electric field.
+    field_delta_dipole: float
+    #: change in polarizability due to electric field.
+    field_delta_polarizability: float
 
     def get_absorption(self) -> AbsorptionSpectrum:
         """Compute the absorption spectrum for the model.
@@ -113,7 +112,7 @@ class StarkModel(Model):
 
         return neutral_submodel
 
-    def get_charged_submodel(self, field_strength_scalar: Float[Scalar, ""]) -> Model:
+    def get_charged_submodel(self, field_strength_scalar: float) -> Model:
         """Returns a charged submodel with the Stark effect applied.
 
         This method starts with the neutral submodel from `get_neutral_submodel` and applies the Stark effect.
@@ -122,7 +121,7 @@ class StarkModel(Model):
 
         Parameters
         ----------
-        field_strength_scalar : Float[Scalar, ""]
+        field_strength_scalar : float
             scalar to multiply the field strength by.
 
         Returns

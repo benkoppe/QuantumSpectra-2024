@@ -1,7 +1,7 @@
 import jax_dataclasses as jdc
-from jaxtyping import Float, Int, Bool, Scalar, Array
+from jaxtyping import Float, Int, Bool, Array
 
-from quantumspectra_2024.modules.hamiltonian.HamiltonianComputation import (
+from quantumspectra_2024.common.hamiltonian.HamiltonianComputation import (
     build_matrix,
     diagonalize_matrix,
 )
@@ -13,7 +13,7 @@ class HamiltonianModel:
 
     Attributes
     ----------
-    transfer_integral : Float[Scalar, ""]
+    transfer_integral : float
         transfer integral between states.
     state_energies : Float[Array, "num_states"]
         energies of each state.
@@ -28,12 +28,18 @@ class HamiltonianModel:
         coupling per mode and state.
     """
 
-    transfer_integral: Float[Scalar, ""]
+    #: transfer integral between states.
+    transfer_integral: float
+    #: energies of each state.
     state_energies: Float[Array, "num_states"]
 
-    mode_basis_sets: jdc.Static[Int[Array, "num_modes"]]
+    #: basis set size per mode.
+    mode_basis_sets: Int[Array, "num_modes"]
+    #: whether each mode is local.
     mode_localities: Bool[Array, "num_modes"]
+    #: frequency per mode.
     mode_frequencies: Float[Array, "num_modes"]
+    #: coupling per mode and state.
     mode_state_couplings: Float[Array, "num_modes num_states"]
 
     def get_diagonalization(self) -> tuple[

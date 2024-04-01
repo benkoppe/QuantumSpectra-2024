@@ -1,11 +1,14 @@
-from quantumspectra_2024.modules.Config import (
+from quantumspectra_2024.common.Config import (
     parse_config,
     initialize_absorption_from_config,
     save_spectrum_from_config,
 )
-from quantumspectra_2024.modules.absorption import AbsorptionModel, AbsorptionSpectrum
+from quantumspectra_2024.common.absorption import (
+    AbsorptionModel,
+    AbsorptionSpectrum,
+)
 
-from quantumspectra_2024.absorption import TwoStateModel, MLJModel, StarkModel
+from quantumspectra_2024.models import TwoStateModel, MLJModel, StarkModel
 
 
 def main():

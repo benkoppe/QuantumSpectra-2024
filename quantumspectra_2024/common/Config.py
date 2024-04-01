@@ -3,7 +3,10 @@ from pathlib import Path
 from argparse import ArgumentParser
 import tomllib
 
-from quantumspectra_2024.modules.absorption import AbsorptionModel, AbsorptionSpectrum
+from quantumspectra_2024.common.absorption import (
+    AbsorptionModel,
+    AbsorptionSpectrum,
+)
 
 CONFIG_ARG_NAME = "config_path"
 CONFIG_ARG_HELP = "Path to the configuration file."

@@ -1,13 +1,13 @@
 import numpy as np
 import jax.numpy as jnp
 import jax_dataclasses as jdc
-from jaxtyping import Float, Int, Array, Scalar
+from jaxtyping import Float, Array
 
-from quantumspectra_2024.modules.absorption import (
+from quantumspectra_2024.common.absorption import (
     AbsorptionModel as Model,
     AbsorptionSpectrum,
 )
-from quantumspectra_2024.absorption.mlj.MLJComputation import calculate_mlj_spectrum
+from quantumspectra_2024.models.mlj.MLJComputation import calculate_mlj_spectrum
 
 
 @jdc.pytree_dataclass(kw_only=True)
@@ -16,21 +16,21 @@ class MLJModel(Model):
 
     Parameters
     ----------
-    start_energy : Float[Scalar, ""]
+    start_energy : float
         absorption spectrum's starting energy (wavenumbers).
-    end_energy : Float[Scalar, ""]
+    end_energy : float
         absorption spectrum's ending energy (wavenumbers).
-    num_points : Int[Scalar, ""]
+    num_points : int
         absorption spectrum's number of points (unitless).
 
-    temperature_kelvin : Float[Scalar, ""]
+    temperature_kelvin : float
         system's temperature (Kelvin).
-    energy_gap : Float[Scalar, ""]
+    energy_gap : float
         energy gap between the two states (wavenumbers).
-    disorder_meV : Float[Scalar, ""]
+    disorder_meV : float
         disorder in the system (meV).
 
-    basis_size : Int[Scalar, ""]
+    basis_size : int
         size of basis set (unitless).
 
     mode_frequencies : Float[Array, "2"]
@@ -39,19 +39,19 @@ class MLJModel(Model):
         excited state coupling per mode.
     """
 
-    #: Float[Scalar, ""]: system's temperature (Kelvin).
-    temperature_kelvin: Float[Scalar, ""]
-    #: Float[Scalar, ""]: energy gap between the two states (wavenumbers).
-    energy_gap: Float[Scalar, ""]
-    #: Float[Scalar, ""]: disorder in the system (meV).
-    disorder_meV: Float[Scalar, ""]
+    #: system's temperature (Kelvin).
+    temperature_kelvin: float
+    #: energy gap between the two states (wavenumbers).
+    energy_gap: float
+    #: disorder in the system (meV).
+    disorder_meV: float
 
-    #: Int[Scalar, ""]: size of basis set (unitless).
-    basis_size: jdc.Static[Int[Scalar, ""]] = 20
+    #: size of basis set (unitless).
+    basis_size: int = 20
 
-    #: Float[Array, "2"]: frequency per mode (wavenumbers).
+    #: frequency per mode (wavenumbers), must have exactly two.
     mode_frequencies: Float[Array, "2"]
-    #: Float[Array, "2"]: excited state coupling per mode.
+    #: excited state coupling per mode, must have exactly two.
     mode_couplings: Float[Array, "2"]
 
     def get_absorption(self) -> AbsorptionSpectrum:
@@ -123,19 +123,19 @@ class MLJModel(Model):
 
     def apply_electric_field(
         self,
-        field_strength: Array,
-        field_delta_dipole: Array,
-        field_delta_polarizability: Array,
+        field_strength: float,
+        field_delta_dipole: float,
+        field_delta_polarizability: float,
     ) -> "MLJModel":
         """Applies an electric field to the model. Returns a new instance of the model.
 
         Parameters
         ----------
-        field_strength : Float[Scalar, ""]
+        field_strength : float
             the strength of the electric field.
-        field_delta_dipole : Float[Scalar, ""]
+        field_delta_dipole : float
             the change in dipole moment due to the electric field.
-        field_delta_polarizability : Float[Scalar, ""]
+        field_delta_polarizability : float
             the change in polarizability due to the electric field.
 
         Returns

@@ -1,6 +1,6 @@
 import jax
 import jax.numpy as jnp
-from jaxtyping import Float, Int, Bool, Array, Scalar
+from jaxtyping import Float, Int, Bool, Array
 
 
 def diagonalize_matrix(matrix: Float[Array, "matrix_size matrix_size"]) -> tuple[
@@ -25,7 +25,7 @@ def diagonalize_matrix(matrix: Float[Array, "matrix_size matrix_size"]) -> tuple
 
 def build_matrix(
     state_energies: Float[Array, "num_states"],
-    transfer_integral: Float[Scalar, ""],
+    transfer_integral: float,
     mode_basis_sets: Int[Array, "num_modes"],
     mode_localities: Bool[Array, "num_modes"],
     mode_frequencies: Float[Array, "num_modes"],
@@ -46,7 +46,7 @@ def build_matrix(
     ----------
     state_energies : Float[Array, "num_states"]
         energies of all local states.
-    transfer_integral : Float[Scalar, ""]
+    transfer_integral : float
         transfer integral between states.
     mode_basis_sets : Int[Array, "num_modes"]
         basis set size per mode.
@@ -99,7 +99,7 @@ def build_matrix(
 
 
 def build_local_state_block(
-    state_index: Int[Scalar, ""],
+    state_index: int,
     state_energies: Float[Array, "num_states"],
     mode_basis_sets: Int[Array, "num_modes"],
     mode_localities: Bool[Array, "num_modes"],
@@ -116,7 +116,7 @@ def build_local_state_block(
 
     Parameters
     ----------
-    state_index : Int[Scalar, ""]
+    state_index : int
         index of the state.
     state_energies : Float[Array, "num_states"]
         energies of all local states.
@@ -163,8 +163,8 @@ def build_local_state_block(
 
 
 def build_nonlocal_state_block(
-    state_index: Int[Scalar, ""],
-    transfer_integral: Float[Scalar, ""],
+    state_index: int,
+    transfer_integral: float,
     mode_basis_sets: Int[Array, "num_modes"],
     mode_localities: Bool[Array, "num_modes"],
     mode_frequencies: Float[Array, "num_modes"],
@@ -180,9 +180,9 @@ def build_nonlocal_state_block(
 
     Parameters
     ----------
-    state_index : Int[Scalar, ""]
+    state_index : int
         index of the state.
-    transfer_integral : Float[Scalar, ""]
+    transfer_integral : float
         transfer integral between states.
     mode_basis_sets : Int[Array, "num_modes"]
         basis set size per mode.
@@ -297,7 +297,7 @@ def build_state_block(
 
 
 def calculate_state_local_diagonals(
-    state_energy: Float[Scalar, ""],
+    state_energy: float,
     mode_frequencies: Float[Array, "num_modes"],
     mode_couplings: Float[Array, "num_modes"],
     mode_basis_sets: Int[Array, "num_modes"],
@@ -310,7 +310,7 @@ def calculate_state_local_diagonals(
 
     Parameters
     ----------
-    state_energy : Float[Scalar, ""]
+    state_energy : float
         energy of the state.
     mode_frequencies : Float[Array, "num_modes"]
         frequencies of each mode.
@@ -347,7 +347,7 @@ def calculate_state_local_diagonals(
 
 
 def calculate_state_offdiagonals(
-    state_locality: Bool[Scalar, ""],
+    state_locality: bool,
     mode_basis_sets: Int[Array, "num_modes"],
     mode_localities: Bool[Array, "num_modes"],
     mode_frequencies: Float[Array, "num_modes"],
@@ -362,7 +362,7 @@ def calculate_state_offdiagonals(
 
     Parameters
     ----------
-    state_locality : Bool[Scalar, ""]
+    state_locality : bool
         the locality of the state.
     mode_basis_sets : Int[Array, "num_modes"]
         basis set size of each mode.
@@ -400,10 +400,10 @@ def calculate_state_offdiagonals(
 
 
 def calculate_mode_local_diagonal_component(
-    component_index: Int[Scalar, ""],
-    mode_frequency: Float[Scalar, ""],
-    mode_coupling: Float[Scalar, ""],
-) -> Float[Scalar, ""]:
+    component_index: int,
+    mode_frequency: float,
+    mode_coupling: float,
+) -> float:
     """Computes a single diagonal contribution component for a mode.
 
     Diagonal contributions are calculated as follows:
@@ -412,26 +412,26 @@ def calculate_mode_local_diagonal_component(
 
     Parameters
     ----------
-    component_index : Int[Scalar, ""]
+    component_index : int
         the index of the component.
-    mode_frequency : Float[Scalar, ""]
+    mode_frequency : float
         the frequency of the mode.
-    mode_coupling : Float[Scalar, ""]
+    mode_coupling : float
         the coupling of the mode.
 
     Returns
     -------
-    Float[Scalar, ""]
+    float
         the computed diagonal contribution component.
     """
     return mode_frequency * ((component_index + (1 / 2)) + (mode_coupling**2) / 2)
 
 
 def calculate_mode_offdiagonal_component(
-    component_index: Int[Scalar, ""],
-    mode_frequency: Float[Array, ""],
-    mode_coupling: Float[Array, ""],
-) -> Float[Scalar, ""]:
+    component_index: int,
+    mode_frequency: float,
+    mode_coupling: float,
+) -> float:
     """Computes a single offdiagonal contribution component for a mode.
 
     Offdiagonal contributions are calculated as follows:
@@ -440,16 +440,16 @@ def calculate_mode_offdiagonal_component(
 
     Parameters
     ----------
-    component_index : Int[Scalar, ""]
+    component_index : int
         the index of the component.
-    mode_frequency : Float[Scalar, ""]
+    mode_frequency : float
         the frequency of the mode.
-    mode_coupling : Float[Scalar, ""]
+    mode_coupling : float
         the coupling of the mode.
 
     Returns
     -------
-    Float[Scalar, ""]
+    float
         the computed offdiagonal contribution component.
     """
     return mode_frequency * mode_coupling * jnp.sqrt((component_index + 1) / 2)

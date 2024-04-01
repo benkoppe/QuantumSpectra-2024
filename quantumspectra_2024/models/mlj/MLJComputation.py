@@ -1,18 +1,18 @@
 import math
 
 import numpy as np
-from jaxtyping import Float, Int, Array, Scalar
+from jaxtyping import Float, Array
 
 
 def calculate_mlj_spectrum(
-    energy_gap: Float[Scalar, ""],
-    high_freq_frequency: Float[Scalar, ""],
-    high_freq_coupling: Float[Scalar, ""],
-    low_freq_frequency: Float[Scalar, ""],
-    low_freq_coupling: Float[Scalar, ""],
-    temperature_kelvin: Float[Scalar, ""],
-    disorder_meV: Float[Scalar, ""],
-    basis_size: Int[Scalar, ""],
+    energy_gap: float,
+    high_freq_frequency: float,
+    high_freq_coupling: float,
+    low_freq_frequency: float,
+    low_freq_coupling: float,
+    temperature_kelvin: float,
+    disorder_meV: float,
+    basis_size: int,
     sample_points: Float[Array, "num_points"],
 ) -> Float[Array, "num_points"]:
     """Computes an MLJ semiclassical absorption spectrum.
@@ -24,21 +24,21 @@ def calculate_mlj_spectrum(
 
     Parameters
     ----------
-    energy_gap : Float[Scalar, ""]
+    energy_gap : float
         energy gap between states.
-    high_freq_frequency : Float[Scalar, ""]
+    high_freq_frequency : float
         frequency of high frequency mode.
-    high_freq_coupling : Float[Scalar, ""]
+    high_freq_coupling : float
         coupling of high frequency mode.
-    low_freq_frequency : Float[Scalar, ""]
+    low_freq_frequency : float
         frequency of low frequency mode.
-    low_freq_coupling : Float[Scalar, ""]
+    low_freq_coupling : float
         coupling of low frequency mode.
-    temperature_kelvin : Float[Scalar, ""]
+    temperature_kelvin : float
         temperature in Kelvin.
-    disorder_meV : Float[Scalar, ""]
+    disorder_meV : float
         disorder (sigma) in meV.
-    basis_size : Int[Scalar, ""]
+    basis_size : int
         size of basis set.
     sample_points : Float[Array, "num_points"]
         energy points to sample spectrum.
@@ -56,9 +56,7 @@ def calculate_mlj_spectrum(
 
     factorials = [math.factorial(n) for n in range(basis_size + 1)]
 
-    def calculate_mlj_single_intensity(
-        energy: Float[Scalar, ""],
-    ) -> Float[Scalar, ""]:
+    def calculate_mlj_single_intensity(energy: float) -> float:
         abs_arr = [
             (
                 np.exp(-high_freq_huang_rhys_factor)
