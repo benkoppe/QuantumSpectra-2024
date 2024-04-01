@@ -3,7 +3,7 @@ Usage
 
 Once installed (see :doc:`/startup/installation`), QS-2024 can be used in two ways:
 
-* As a command line script (CLI), which requires no Python programming and outputs results as files.
+* As a command-line script (CLI), which requires no Python programming and outputs results as files.
 * As a Python package, which allows for more complex workflows and custom analysis.
 
 Both of these methods are described below.
@@ -15,6 +15,8 @@ Both of these methods are described below.
 
         source /path/to/venv/bin/activate
 
+
+.. _cli_usage:
 
 Running from the command line (CLI)
 ------------------------------------------
