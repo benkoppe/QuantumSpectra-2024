@@ -152,3 +152,15 @@ For example:
 
 .. note::
     The ``submodel_parameter_name`` is the name of the submodel parameter in the model, in the same way that other parameters exactly match the parameter name in the model.
+
+
+Sample Configs
+----------------
+
+The following contains a full sample config file for each model.
+They can be found in the GitHub repository.
+See the :ref:`cli/config:Example Config File` section for a clear-cut example.
+
+.. literalinclude:: ../../../sample_configs/two_state.toml
+    :caption: `two_state.toml <https://github.com/benkoppe/QuantumSpectra-2024/blob/main/sample_configs/two_state.toml>`_
+    :language: toml
