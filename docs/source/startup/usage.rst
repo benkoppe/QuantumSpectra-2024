@@ -8,7 +8,7 @@ Once installed (see :doc:`/startup/installation`), QS-2024 can be used in two wa
 
 Both of these methods are described below.
 
-.. warning:: 
+.. important:: 
     Before using QS-2024, don't forget to activate the virtual environment where it was installed!
 
     .. code-block:: bash
