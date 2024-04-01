@@ -35,7 +35,7 @@ Parameters
 All Models have a mixture of required and optional parameters.
 For further explanation and expected values, see the :ref:`Two-State Computation Docs <two-state-model-computation>`.
 
-Required Parameters
+Model Parameters
 ^^^^^^^^^^^^^^^^^^^^
 
 .. note::
@@ -63,17 +63,17 @@ They must be inputted as arrays, with one value for each mode:
     .. autoattribute:: TwoStateModel.mode_couplings
 
 
-Optional Parameters
+General Parameters
 ^^^^^^^^^^^^^^^^^^^^
 
 All Models have optional parameters to specify the range of their generated spectrum.
 By default, all Models generate 2,001 points between 0 and 20,000 wavenumbers.
 
-.. autosummary:: 
-    
-    TwoStateModel.start_energy
-    TwoStateModel.end_energy
-    TwoStateModel.num_points
+    .. autoattribute:: TwoStateModel.start_energy
+
+    .. autoattribute:: TwoStateModel.end_energy
+
+    .. autoattribute:: TwoStateModel.num_points
 
 
 Examples
@@ -107,7 +107,7 @@ CLI Usage
         model.mode_frequencies = [1200, 100]
         model.mode_couplings = [0.7, 2.0]
 
-    More information on Config files can be found on the :doc:`../cli/config` page.
+    More information on Config files, and full sample files, can be found on the :doc:`../cli/config` page.
 
 #. Then, run the absorption spectrum command with the path to your config file.
 

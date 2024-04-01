@@ -32,7 +32,7 @@ Parameters
 All Models have a mixture of required and optional parameters.
 For further explanation and expected values, see the :ref:`Stark Computation Docs <stark-electric-field-calculation>`.
 
-Required Parameters
+Model Parameters
 ^^^^^^^^^^^^^^^^^^^^
 
 .. note:: 
@@ -40,9 +40,7 @@ Required Parameters
 
 An initialized neutral submodel used to calculate the absorption spectrum:
 
-.. autosummary:: 
-
-    StarkModel.neutral_submodel
+    .. autoattribute:: StarkModel.neutral_submodel
 
 .. warning:: 
 
@@ -51,31 +49,29 @@ An initialized neutral submodel used to calculate the absorption spectrum:
 
 These scalar paramters describe the effect of the electric field:
 
-.. autosummary:: 
-
-    StarkModel.positive_field_strength
-    StarkModel.positive_field_sum_percent
+    .. autoattribute:: StarkModel.positive_field_strength
+    
+    .. autoattribute:: StarkModel.positive_field_sum_percent
 
 These scalar parameters describe the nature of the electric field:
 
-.. autosummary:: 
+    .. autoattribute:: StarkModel.field_delta_dipole
 
-    StarkModel.field_delta_dipole
-    StarkModel.field_delta_polarizability
+    .. autoattribute:: StarkModel.field_delta_polarizability
 
 
-Optional Parameters
+General Parameters
 ^^^^^^^^^^^^^^^^^^^^
 
 All Models have optional parameters to specify the range of their generated spectrum.
 By default, all Models generate 2,001 points between 0 and 20,000 wavenumbers.
 This takes priority over the submodel's default range.
 
-.. autosummary:: 
+    .. autoattribute:: StarkModel.start_energy
     
-    StarkModel.start_energy
-    StarkModel.end_energy
-    StarkModel.num_points
+    .. autoattribute:: StarkModel.end_energy
+    
+    .. autoattribute:: StarkModel.num_points
 
 
 Examples

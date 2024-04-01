@@ -33,7 +33,7 @@ Parameters
 All Models have a mixture of required and optional parameters.
 For further explanation and expected values, see the :ref:`MLJ Computation Docs <mlj-calculation>`.
 
-Required Parameters
+Model Parameters
 ^^^^^^^^^^^^^^^^^^^^
 
 .. note:: 
@@ -41,39 +41,36 @@ Required Parameters
 
 This static integer parameter defines the size of the calculation:
 
-.. autosummary:: 
-
-    MLJModel.basis_size
+    .. autoattribute:: MLJModel.basis_size
 
 These scalar parameters are used in the calculation:
 
-.. autosummary:: 
-
-    MLJModel.temperature_kelvin
-    MLJModel.energy_gap
-    MLJModel.disorder_meV
+    .. autoattribute:: MLJModel.temperature_kelvin
+    
+    .. autoattribute:: MLJModel.energy_gap
+    
+    .. autoattribute:: MLJModel.disorder_meV
 
 These vector parameters are used in the calculation, and define mode parameters.
 They should correspond to the number of modes in the calculation, and thus have two values.
 Each value should correspond to a high-energy and low-energy mode (order doesn't matter).
 
-.. autosummary:: 
+    .. autoattribute:: MLJModel.mode_frequencies
+    
+    .. autoattribute:: MLJModel.mode_couplings
 
-    MLJModel.mode_frequencies
-    MLJModel.mode_couplings
 
-
-Optional Parameters
+General Parameters
 ^^^^^^^^^^^^^^^^^^^^
 
 All Models have optional parameters to specify the range of their generated spectrum.
 By default, all Models generate 2,001 points between 0 and 20,000 wavenumbers.
 
-.. autosummary:: 
-    
-    MLJModel.start_energy
-    MLJModel.end_energy
-    MLJModel.num_points
+    .. autoattribute:: MLJModel.start_energy
+
+    .. autoattribute:: MLJModel.end_energy
+
+    .. autoattribute:: MLJModel.num_points
 
 
 Examples
