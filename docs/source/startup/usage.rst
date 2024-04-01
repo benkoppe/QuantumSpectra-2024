@@ -28,10 +28,8 @@ QS-2024 can be run using config files from the command line.
     Config files contain all the information needed to run a QS-2024 absorption model.
     They are written in the TOML format, and should be named with the ``.toml`` extension.
 
-    Example configs for each model can be found in the `sample configs <https://github.com/benkoppe/QuantumSpectra-2024/tree/main/sample_configs>`_ directory on GitHub.
-    Create a config file for the model you want to run, and fill in the necessary fields.
-
     More information about config files can be found on the :doc:`../cli/config` page.
+    Sample config files can be found in the :ref:`config-samples` section of that page.
 
 #. **Run the model**
 

@@ -107,7 +107,8 @@ CLI Usage
         model.mode_frequencies = [1200, 100]
         model.mode_couplings = [0.7, 2.0]
 
-    More information on Config files, and full sample files, can be found on the :doc:`../cli/config` page.
+    More information about config files can be found on the :doc:`../cli/config` page.
+    Sample config files can be found in the :ref:`config-samples` section of that page.
 
 #. Then, run the absorption spectrum command with the path to your config file.
 
