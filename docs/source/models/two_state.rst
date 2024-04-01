@@ -1,8 +1,7 @@
-.. currentmodule:: quantumspectra_2024.absorption
+.. currentmodule:: quantumspectra_2024.models
 
 Two-State Model
 ======================================================================
-
 
 The two-state multimodal model is a quantum mechanical model for absorption spectra.
 It expects two states and any number of modes.
@@ -44,26 +43,24 @@ Required Parameters
 
 These scalar parameters are used in the broadening process:
 
-.. autosummary:: 
+    .. autoattribute:: TwoStateModel.broadening
 
-    TwoStateModel.broadening
-    TwoStateModel.temperature_kelvin
+    .. autoattribute:: TwoStateModel.temperature_kelvin
 
 These scalar parameters are used in the vibronic hamiltonian expansion:
 
-.. autosummary::
+    .. autoattribute:: TwoStateModel.transfer_integral
     
-    TwoStateModel.transfer_integral
-    TwoStateModel.energy_gap
+    .. autoattribute:: TwoStateModel.energy_gap
 
 These vectory parameters are used in the vibronic hamiltonian expansion.
 They must be inputted as arrays, with one value for each mode:
 
-.. autosummary:: 
-    
-    TwoStateModel.mode_basis_sets
-    TwoStateModel.mode_frequencies
-    TwoStateModel.mode_couplings
+    .. autoattribute:: TwoStateModel.mode_basis_sets
+
+    .. autoattribute:: TwoStateModel.mode_frequencies
+
+    .. autoattribute:: TwoStateModel.mode_couplings
 
 
 Optional Parameters
@@ -127,7 +124,7 @@ Package Usage
 
     .. code-block:: python
 
-        from quantumspectra_2024.absorption import TwoStateModel
+        from quantumspectra_2024.models import TwoStateModel
 
 #. Create an instance of the model with the desired parameters.
 

@@ -16,5 +16,5 @@ This will describe how the MLJ model generates an absorption spectrum.
 
 These docs aren't yet written! For now, read descriptions from the source docstrings:
 
-.. automodule:: quantumspectra_2024.absorption.mlj.MLJComputation
+.. automodule:: quantumspectra_2024.models.mlj.MLJComputation
     :members:

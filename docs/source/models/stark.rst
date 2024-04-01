@@ -1,4 +1,4 @@
-.. currentmodule:: quantumspectra_2024.absorption
+.. currentmodule:: quantumspectra_2024.models
 
 Stark Model
 ==============================
@@ -73,9 +73,9 @@ This takes priority over the submodel's default range.
 
 .. autosummary:: 
     
-    TwoStateModel.start_energy
-    TwoStateModel.end_energy
-    TwoStateModel.num_points
+    StarkModel.start_energy
+    StarkModel.end_energy
+    StarkModel.num_points
 
 
 Examples
@@ -138,8 +138,8 @@ Package Usage
 
     .. code-block:: python
 
-        from quantumspectra_2024.absorption import StarkModel
-        from quantumspectra_2024.absorption import TwoStateModel # or any other submodel
+        from quantumspectra_2024.models import StarkModel
+        from quantumspectra_2024.models import TwoStateModel # or any other submodel
 
 #. Create an instance of the submodel with the desired parameters.
 

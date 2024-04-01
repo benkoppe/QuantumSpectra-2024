@@ -16,5 +16,5 @@ This will describe how the Stark model generates a new absorption spectrum from 
 
 These docs aren't yet written! For now, read descriptions from the source docstrings:
 
-.. automodule:: quantumspectra_2024.absorption.stark
+.. automodule:: quantumspectra_2024.models.stark
     :members:

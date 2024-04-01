@@ -13,7 +13,7 @@ Spectrum Broadening
 
 These docs aren't yet written! For now, read descriptions from the source docstrings:
 
-.. automodule:: quantumspectra_2024.absorption.two_state.TwoStateComputation
+.. automodule:: quantumspectra_2024.models.two_state.TwoStateComputation
     :members:
 
 .. _hamiltonian-model-computation:
@@ -23,5 +23,5 @@ Hamiltonian Model
 
 These docs aren't yet written! For now, read descriptions from the source docstrings:
 
-.. automodule:: quantumspectra_2024.modules.hamiltonian.HamiltonianComputation
+.. automodule:: quantumspectra_2024.common.hamiltonian.HamiltonianComputation
     :members:

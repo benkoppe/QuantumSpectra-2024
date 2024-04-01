@@ -42,4 +42,3 @@ To get started, read the :doc:`insallation guide <startup/installation>`.
 
    cli/config
    package/absorption_spectrum
-   jaxtyping

@@ -1,4 +1,4 @@
-.. currentmodule:: quantumspectra_2024.absorption
+.. currentmodule:: quantumspectra_2024.models
 
 MLJ Model
 =====================
@@ -71,9 +71,9 @@ By default, all Models generate 2,001 points between 0 and 20,000 wavenumbers.
 
 .. autosummary:: 
     
-    TwoStateModel.start_energy
-    TwoStateModel.end_energy
-    TwoStateModel.num_points
+    MLJModel.start_energy
+    MLJModel.end_energy
+    MLJModel.num_points
 
 
 Examples
@@ -123,7 +123,7 @@ Package Usage
 
     .. code-block:: python
 
-        from quantumspectra_2024.absorption import MLJModel
+        from quantumspectra_2024.models import MLJModel
 
 #. Create an instance of the model with the desired parameters.
 

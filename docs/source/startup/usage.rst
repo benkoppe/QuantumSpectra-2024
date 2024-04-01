@@ -57,7 +57,7 @@ QS-2024 can be run as a package from Python programs or Jupyter notebooks.
 
     .. code-block:: python
 
-        from quantumspectra_2024.absorption import *
+        from quantumspectra_2024.models import *   # or a specific model
 
 #. **Initialize a Model object**
 
