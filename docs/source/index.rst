@@ -3,10 +3,13 @@ QuantumSpectra-2024
 
 Welcome to the documentation for QuantumSpectra-2024, or **QS-2024** for short.
 
-QS-2024 is a Python package for simulating the absorption spectra of donor-acceptor molecular systems.
+QS-2024 is a Python package for **simulating absorption spectra.**
+
 A number of different models are implemented, all of which are based in quantum mechanical or semiclassical theory.
 
-To get started, read the :doc:`insallation guide <startup/installation>`.
+To get started, read the :doc:`Insallation Guide <startup/installation>`.
+
+------------
 
 .. toctree:: 
    :hidden:
