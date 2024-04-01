@@ -9,8 +9,6 @@
 import os
 import sys
 
-sys.path.insert(0, os.path.abspath("../../"))
-
 project = "QuantumSpectra-2024"
 copyright = "2024, Ben Koppe"
 author = "Ben Koppe"
@@ -22,7 +20,6 @@ extensions = [
     "sphinx.ext.autodoc",
     # "sphinx.ext.napoleon",
     "numpydoc",
-    "sphinx.ext.todo",
     "sphinx.ext.mathjax",
     "sphinx.ext.viewcode",
     "sphinx.ext.duration",
@@ -32,8 +29,8 @@ extensions = [
     "sphinx.ext.autosummary",
     # "autoapi.extension",
     "sphinx.ext.autosectionlabel",
-    "sphinx.ext.inheritance_diagram",
-    "nbsphinx",
+    # "nbsphinx",
+    # "sphinx_autodoc_typehints",
 ]
 
 templates_path = ["_templates"]
@@ -47,6 +44,21 @@ exclude_patterns = [
 pygments_style = "sphinx"
 
 autodoc_member_order = "bysource"
+# autodoc_mock_imports = ["jaxtyping"]
+autodoc_typehints_format = "short"
+
+
+# def process_jaxtyping_docstrings(app, what, name, obj, options, lines):
+#     for i, line in enumerate(lines):
+#         if "Float[Array," in line:
+#             print(line)
+#             lines[i] = line.replace('Float[Array, "num_modes"]', ":ref:`jaxtyping`")
+#             print(lines[i])
+
+
+# def setup(app):
+#     app.connect("autodoc-process-docstring", process_jaxtyping_docstrings)
+
 
 autosummary_generate = True
 
@@ -75,7 +87,11 @@ intersphinx_mapping = {
 
 html_theme = "sphinx_rtd_theme"
 html_static_path = ["_static"]
+html_logo = "qs-logo.png"
 
 html_theme_options = {
     "collapse_navigation": False,
+    "logo_only": True,
 }
+
+sys.path.insert(0, os.path.abspath("../.."))
