@@ -1,3 +1,5 @@
+import os
+import shutil
 from typing import Type, Callable
 from pathlib import Path
 from argparse import ArgumentParser
@@ -7,6 +9,8 @@ from quantumspectra_2024.common.absorption import (
     AbsorptionModel,
     AbsorptionSpectrum,
 )
+
+SAMPLE_CONFIGS_SOURCE = "sample_configs/"
 
 CONFIG_ARG_NAME = "config_path"
 CONFIG_ARG_HELP = "Path to the configuration file."
@@ -211,3 +215,29 @@ def ensure_keys_included(data: dict, keys: list, key_type: str) -> None:
             raise ValueError(
                 f"Required config key '{key}' not found in {key_type} data."
             )
+
+
+def copy_sample_configs(destination_folder: str, overwrite: bool = False):
+    """Copies all sample configuration files to the given destination folder.
+
+    Parameters
+    ----------
+    destination_folder : str
+        the destination folder to copy the sample configs to.
+    """
+    # Ensure the destination folder path exists
+    if not os.path.exists(destination_folder):
+        os.makedirs(destination_folder)
+
+    # List all files in the source folder
+    source_folder = Path(SAMPLE_CONFIGS_SOURCE)
+    for file in source_folder.iterdir():
+        # Copy each file to the destination folder
+        if file.is_file():
+            destination_file = Path(destination_folder) / file.name
+            if overwrite or not destination_file.exists():
+                shutil.copy(file, destination_file)
+            else:
+                print(
+                    f"File {destination_file} already exists, and overwriting is disabled. Skipping."
+                )
