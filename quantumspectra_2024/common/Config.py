@@ -225,6 +225,9 @@ def copy_sample_configs(destination_folder: str, overwrite: bool = False):
     destination_folder : str
         the destination folder to copy the sample configs to.
     """
+    if overwrite == None:
+        overwrite = False
+
     # Ensure the destination folder path exists
     if not os.path.exists(destination_folder):
         os.makedirs(destination_folder)
