@@ -20,6 +20,34 @@ class AbsorptionSpectrum:
     energies: Float[Array, "num_points"]
     intensities: Float[Array, "num_points"]
 
+    def cut_bounds(
+        self, start_energy: float = None, end_energy: float = None
+    ) -> "AbsorptionSpectrum":
+        """Cut the absorption spectrum to a specific energy range.
+
+        Parameters
+        ----------
+        start_energy : float
+            the starting energy of the cut.
+        end_energy : float
+            the ending energy of the cut.
+
+        Returns
+        -------
+        AbsorptionSpectrum
+            the cut absorption spectrum.
+        """
+        if start_energy is None:
+            start_energy = self.energies[0]
+        if end_energy is None:
+            end_energy = self.energies[-1]
+
+        mask = (self.energies >= start_energy) & (self.energies <= end_energy)
+
+        return AbsorptionSpectrum(
+            energies=self.energies[mask], intensities=self.intensities[mask]
+        )
+
     def save_data(self, filename: str) -> None:
         """Save the absorption spectrum data to a file.
 
