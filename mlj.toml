@@ -1,0 +1,23 @@
+# REQUIRED: output parameters
+out.filename = "mlj_output"
+out.data = true
+out.plot = true
+out.overwrite = true
+
+# REQUIRED: model name
+model.name = "mlj"
+
+# optional model parameters
+model.start_energy = 0
+model.end_energy = 20000
+model.num_points = 2001
+
+# model-specific parameters
+model.temperature_kelvin = 300
+model.energy_gap = 8000
+model.disorder_meV = 0
+
+model.basis_size = 20
+
+model.mode_frequencies = [1200, 100]
+model.mode_couplings = [0.7, 2.0]

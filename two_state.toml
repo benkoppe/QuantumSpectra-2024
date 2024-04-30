@@ -1,0 +1,24 @@
+# REQUIRED: output parameters
+out.filename = "two_state_output"
+out.data = true
+out.plot = true
+out.overwrite = true
+
+# REQUIRED: model name
+model.name = "two_state"
+
+# optional model parameters
+model.start_energy = 0
+model.end_energy = 20000
+model.num_points = 2001
+
+# model-specific parameters
+model.temperature_kelvin = 300
+model.broadening = 200
+
+model.transfer_integral = 100
+model.energy_gap = 8000
+
+model.mode_basis_sets = [20, 200]
+model.mode_frequencies = [1200, 100]
+model.mode_couplings = [0.7, 2.0]
