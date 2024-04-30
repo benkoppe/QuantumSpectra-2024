@@ -28,6 +28,13 @@ QS-2024 can be run using config files from the command line.
     Config files contain all the information needed to run a QS-2024 absorption model.
     They are written in the TOML format, and should be named with the ``.toml`` extension.
 
+    A sample config file is provided for each model type. They contain all desired parameters and default values.
+    To download all sample config files, run the following command:
+
+    .. code-block:: bash
+
+        qs_2024 --download-configs
+    
     More information about config files can be found on the :doc:`../cli/config` page.
     Sample config files can be found in the :ref:`config-samples` section of that page.
 
