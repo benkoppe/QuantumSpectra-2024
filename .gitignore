@@ -2,7 +2,7 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=macos,windows,pycharm,visualstudiocode,python,jupyternotebooks
 
 # Outputs folder
-/outputs
+# /outputs
 
 ### Sphinx Documentation ###
 # Build documentation
