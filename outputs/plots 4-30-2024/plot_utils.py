@@ -3,8 +3,9 @@ from pathlib import Path
 from quantumspectra_2024.common.absorption import AbsorptionSpectrum
 
 import jax
+import numpy as np
 
-jax.config.update("jax_enable_x64", True)
+# jax.config.update("jax_enable_x64", True)
 
 PARENT_DIR = Path(__file__).parent
 
@@ -49,6 +50,27 @@ def open_file(filename):
         return pickle.load(f)
 
 
+# STATISTICAL ANALYSIS
+
+
+def get_stats(x, y):
+    # Returns a distribution's mean, standard deviation, skewness, and kurtosis
+
+    x, y = np.array(x), np.array(y)
+    y = np.abs(y)
+
+    # Calculate the mean and standard deviation
+    mean = np.sum(x * y) / np.sum(y)
+    variance = np.sum(y * (x - mean) ** 2) / np.sum(y)
+    std_dev = np.sqrt(variance)
+
+    # Calculate the third and fourth central moments of the data.
+    skewness = np.sum(y * (x - mean) ** 3) / (np.sum(y) * std_dev**3)
+    kurtosis = np.sum(y * (x - mean) ** 4) / (np.sum(y) * std_dev**4) - 3
+
+    return mean, std_dev, skewness, kurtosis
+
+
 # SPECTRUM OBJECT MUTATION
 
 
@@ -91,3 +113,26 @@ def scale_relative_to_one(spectra):
         new_spectra.append(new_spectrum)
 
     return new_spectra
+
+
+# PLOT HELPERS
+
+
+def fix_twinx_ticks(ax, twinax):
+    y1_min, y1_max = ax.get_ylim()
+    y2_min, y2_max = twinax.get_ylim()
+
+    ratio1 = y1_max / (-y1_min if y1_min != 0 else y1_max)
+    ratio2 = y2_max / (-y2_min if y2_min != 0 else y2_max)
+
+    ax.set_zorder(1)
+    twinax.set_zorder(0)
+    ax.patch.set_visible(False)
+
+    # Set the same ratio for both axes
+    if ratio1 > ratio2:
+        new_y2_max = -y2_min * ratio1
+        twinax.set_ylim(y2_min, new_y2_max)
+    else:
+        new_y1_max = -y1_min * ratio2
+        ax.set_ylim(y1_min, new_y1_max)
