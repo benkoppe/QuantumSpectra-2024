@@ -1,11 +1,13 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-import jax_dataclasses as jdc
+import numpy as np
 from jaxtyping import Float, Array
+from dataclasses import dataclass
 
 
-@jdc.pytree_dataclass(kw_only=True)
+# @jdc.pytree_dataclass(kw_only=True)
+@dataclass
 class AbsorptionSpectrum:
     """Represents an absorption spectrum. Outputted by all `AbsorptionModel` subclasses.
 
@@ -19,6 +21,10 @@ class AbsorptionSpectrum:
 
     energies: Float[Array, "num_points"]
     intensities: Float[Array, "num_points"]
+
+    def __init__(self, energies, intensities):
+        self.energies = np.array(energies)
+        self.intensities = np.array(intensities)
 
     def cut_bounds(
         self, start_energy: float = None, end_energy: float = None
