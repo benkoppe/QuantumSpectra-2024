@@ -18,7 +18,7 @@ from quantumspectra_2024.models.three_state.ThreeStateComputation import (
 )
 
 
-@jdc.pytree_dataclass(kw_only=True)
+@jdc.pytree_dataclass(kw_only=True, eq=True, frozen=True)
 class ThreeStateSimpleModel(Model):
 
     broadening: float = 200.0

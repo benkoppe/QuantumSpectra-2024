@@ -1,13 +1,14 @@
 import jax_dataclasses as jdc
 
 from abc import ABC, abstractmethod
+import inspect
 
 from quantumspectra_2024.common.absorption.AbsorptionSpectrum import (
     AbsorptionSpectrum,
 )
 
 
-@jdc.pytree_dataclass(kw_only=True)
+@jdc.pytree_dataclass(kw_only=True, eq=True, frozen=True)
 class AbsorptionModel(ABC):
     """Represents a model for generating absorption spectra.
 
@@ -30,6 +31,18 @@ class AbsorptionModel(ABC):
     end_energy: float = 20_000.0
     #: absorption spectrum's number of points (unitless).
     num_points: int = 2_001
+
+    @classmethod
+    def get_arguments(cls) -> list[str]:
+        """Return a list of all argument names for the class.
+
+        This is intended to ease object initialization of the class with keyword arguments.
+        It can help with filtering a dictionary of parameters for initialization.
+
+        Returns:
+            list[str]: A list of all argument names for the class.
+        """
+        return list(inspect.signature(cls).parameters.keys())
 
     @abstractmethod
     def get_absorption(self) -> AbsorptionSpectrum:

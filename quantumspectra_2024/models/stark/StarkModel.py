@@ -7,7 +7,7 @@ from quantumspectra_2024.common.absorption import (
 )
 
 
-@jdc.pytree_dataclass(kw_only=True)
+@jdc.pytree_dataclass(kw_only=True, eq=True, frozen=True)
 class StarkModel(Model):
     """A general model for Stark absorption spectrum.
 

@@ -10,7 +10,7 @@ from quantumspectra_2024.common.absorption import (
 from quantumspectra_2024.models.mlj.MLJComputation import calculate_mlj_spectrum
 
 
-@jdc.pytree_dataclass(kw_only=True)
+@jdc.pytree_dataclass(kw_only=True, eq=True, frozen=True)
 class MLJModel(Model):
     """A two-state two-mode MLJ model for absorption spectra.
 
