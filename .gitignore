@@ -4,6 +4,10 @@
 # Outputs folder
 # /outputs
 
+# Pickles folder
+pickles/
+*.pkl
+
 ### Sphinx Documentation ###
 # Build documentation
 /docs/build
