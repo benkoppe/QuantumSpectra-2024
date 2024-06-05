@@ -6,7 +6,9 @@
 
 # Pickles folder
 pickles/
+csvs/
 *.pkl
+*.csv
 
 ### Sphinx Documentation ###
 # Build documentation

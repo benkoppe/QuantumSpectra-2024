@@ -8,7 +8,7 @@ from quantumspectra_2024.common.absorption.AbsorptionSpectrum import (
 )
 
 
-@jdc.pytree_dataclass(kw_only=True, eq=True, frozen=True)
+@jdc.pytree_dataclass(kw_only=True)
 class AbsorptionModel(ABC):
     """Represents a model for generating absorption spectra.
 
@@ -78,3 +78,25 @@ class AbsorptionModel(ABC):
             the model with the electric field applied.
         """
         raise NotImplementedError
+
+    def __hash__(self):
+        values = []
+        for field in self.__dataclass_fields__:
+            value = getattr(self, field)
+            if isinstance(value, list):
+                value = tuple(value)
+            values.append(value)
+        return hash(tuple(values))
+
+    def __eq__(self, other):
+        if not isinstance(other, type(self)):
+            return False
+        for field in self.__dataclass_fields__:
+            value_self = getattr(self, field)
+            value_other = getattr(other, field)
+            if isinstance(value_self, list) and isinstance(value_other, list):
+                if tuple(value_self) != tuple(value_other):
+                    return False
+            elif value_self != value_other:
+                return False
+        return True
