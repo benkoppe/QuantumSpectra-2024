@@ -13,7 +13,7 @@ from quantumspectra_2024.common.hamiltonian import HamiltonianModel
 class ModThreeStateSimpleModel(ThreeStateSimpleModel):
     def get_hamiltonian(self) -> HamiltonianModel:
         return HamiltonianModel(
-            transfer_integral=self.ct_le_coupling,
+            transfer_integrals=self.ct_le_coupling,
             state_energies=jnp.array([0, self.le_energy_gap - self.ct_energy_gap]),
             mode_basis_sets=jnp.array(self.mode_basis_sets),
             mode_localities=jnp.array([True, True]),

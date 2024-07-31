@@ -25,7 +25,7 @@ def diagonalize_matrix(matrix: Float[Array, "matrix_size matrix_size"]) -> tuple
 
 def build_matrix(
     state_energies: Float[Array, "num_states"],
-    transfer_integral: float,
+    transfer_integrals: float | Float[Array, "num_transfer_integrals"],
     mode_basis_sets: Int[Array, "num_modes"],
     mode_localities: Bool[Array, "num_modes"],
     mode_frequencies: Float[Array, "num_modes"],
@@ -46,8 +46,9 @@ def build_matrix(
     ----------
     state_energies : Float[Array, "num_states"]
         energies of all local states.
-    transfer_integral : float
-        transfer integral between states.
+    transfer_integrals : float | Float[Array, "num_transfer_integrals"]
+        transfer integral between states, or multiple transfer integrals.
+        See model documentation for more information.
     mode_basis_sets : Int[Array, "num_modes"]
         basis set size per mode.
     mode_localities : Bool[Array, "num_modes"]
@@ -63,6 +64,18 @@ def build_matrix(
         fully constructed matrix in `jax` array.
     """
     num_states = len(state_energies)
+
+    curr_transfer_integral = 0
+
+    # bandaid impure function to get the next transfer integral
+    def next_transfer_integral():
+        nonlocal curr_transfer_integral
+        if isinstance(transfer_integrals, float | int):
+            return transfer_integrals
+
+        transfer_integral = transfer_integrals[curr_transfer_integral]
+        curr_transfer_integral += 1
+        return transfer_integral
 
     # build the matrix, state by state
     rows = []
@@ -85,7 +98,7 @@ def build_matrix(
                 # calculate a nonlocal state block
                 state = build_nonlocal_state_block(
                     state_index=state_index,
-                    transfer_integral=transfer_integral,
+                    transfer_integral=next_transfer_integral(),
                     mode_basis_sets=mode_basis_sets,
                     mode_localities=mode_localities,
                     mode_frequencies=mode_frequencies,

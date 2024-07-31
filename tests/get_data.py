@@ -76,7 +76,7 @@ print(keys[0])
 import numpy as np
 from dataclasses import dataclass
 import pickle
-from validation_data.fortran import FortranValidationData
+from .validation_data.fortran import FortranValidationData
 
 
 # load data at every file path

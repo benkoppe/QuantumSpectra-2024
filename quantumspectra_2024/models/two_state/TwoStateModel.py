@@ -116,7 +116,7 @@ class TwoStateModel(Model):
             the model's Hamiltonian.
         """
         return HamiltonianModel(
-            transfer_integral=self.transfer_integral,
+            transfer_integrals=self.transfer_integral,
             state_energies=jnp.array([0.0, self.energy_gap]),
             mode_basis_sets=jnp.array(self.mode_basis_sets),
             mode_localities=jnp.array([True, True]),

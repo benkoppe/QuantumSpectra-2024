@@ -10,7 +10,7 @@ model = TwoStateModel(
     temperature_kelvin=300,
     energy_gap=10745,
     transfer_integral=100,
-    mode_basis_sets=[10, 100],
+    mode_basis_sets=[20, 200],
     mode_frequencies=[1400, 100],
     mode_couplings=[0.85, 4.0],
 )

@@ -13,8 +13,8 @@ class HamiltonianModel:
 
     Attributes
     ----------
-    transfer_integral : float
-        transfer integral between states.
+    transfer_integrals : float | Float[Array, "(num_states * (num_states - 1)) // 2"]
+        transfer integral between states. A single value applies to all states, while an array has a value for each pair of states (i, j) in order of increasing increasing i and j (first j, then i). This means arrays go down the first row, then the second row, and so on.
     state_energies : Float[Array, "num_states"]
         energies of each state.
 
@@ -29,7 +29,7 @@ class HamiltonianModel:
     """
 
     #: transfer integral between states.
-    transfer_integral: float
+    transfer_integrals: float | Float[Array, "(num_states * (num_states - 1)) // 2"]
     #: energies of each state.
     state_energies: Float[Array, "num_states"]
 
@@ -77,7 +77,7 @@ class HamiltonianModel:
         return build_matrix(
             mode_basis_sets=self.mode_basis_sets,
             state_energies=self.state_energies,
-            transfer_integral=self.transfer_integral,
+            transfer_integrals=self.transfer_integrals,
             mode_localities=self.mode_localities,
             mode_frequencies=self.mode_frequencies,
             mode_state_couplings=self.mode_state_couplings,
