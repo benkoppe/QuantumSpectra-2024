@@ -58,7 +58,7 @@ def compute_peaks(
         two_state_eigenvalues=two_state_eigenvalues,
         temperature_wavenumbers=temperature_wavenumbers,
     )
-    intensities = pure_intensities * probability_scalars
+    intensities = intensities_matrix * probability_scalars
 
     return energies, intensities
 

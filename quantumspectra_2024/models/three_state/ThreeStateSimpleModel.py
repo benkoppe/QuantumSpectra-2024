@@ -30,9 +30,6 @@ class ThreeStateSimpleModel(Model):
     gs_ct_coupling: float
     ct_le_coupling: float
 
-    d_LE: float  # TODO: dipole moment for LE state?
-    d_CT: float  # dipole moment for CT state?
-
     ct_mode_couplings: Float[Array, "num_modes"]
     le_mode_couplings: Float[Array, "num_modes"]
 
