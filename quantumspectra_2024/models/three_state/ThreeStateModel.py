@@ -2,7 +2,10 @@ import jax.numpy as jnp
 import jax_dataclasses as jdc
 from jaxtyping import Float, Int, Array
 
-from quantumspectra_2024.common.absorption import AbsorptionModel as Model
+from quantumspectra_2024.common.absorption import (
+    AbsorptionModel as Model,
+    AbsorptionSpectrum,
+)
 from quantumspectra_2024.common.hamiltonian import HamiltonianModel
 
 
@@ -24,9 +27,12 @@ class ThreeStateModel(Model):
     mode_basis_sets: Int[Array, "num_modes"]
     mode_frequencies: Float[Array, "num_modes"]
 
+    def get_absorption(self) -> AbsorptionSpectrum:
+        raise NotImplementedError
+
     def get_hamiltonian(self) -> HamiltonianModel:
         return HamiltonianModel(
-            transfer_integrals=self.gs_ct_coupling,
+            transfer_integrals=[self.gs_ct_coupling, 0.0, self.ct_le_coupling],
             state_energies=jnp.array([0.0, self.ct_energy_gap, self.le_energy_gap]),
             mode_basis_sets=jnp.array(self.mode_basis_sets),
             mode_localities=jnp.array([True, True, True]),
@@ -39,4 +45,13 @@ class ThreeStateModel(Model):
                     )
                 ]
             ),
+        )
+
+    def apply_electric_field(
+        field_strength: float,
+        field_delta_dipole: float,
+        field_delta_polarizability: float,
+    ) -> Model:
+        return super().apply_electric_field(
+            field_delta_dipole, field_delta_polarizability
         )
