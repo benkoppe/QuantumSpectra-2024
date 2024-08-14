@@ -1,0 +1,13 @@
+
+neutral_submodel: 
+	broadening: 200.0
+	temperature_kelvin: 300
+	transfer_integral: 100
+	energy_gap: 4032.772145 (0.5 eV)
+	mode_basis_sets: [20, 200]
+	mode_frequencies: [1200, 100]
+	mode_couplings: [2.0, 4.0]
+positive_field_strength: 0.1
+positive_field_sum_percent: 0.5
+field_delta_dipole: 10
+field_delta_polarizability: 100
