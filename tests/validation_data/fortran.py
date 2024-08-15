@@ -67,3 +67,9 @@ TWO_STATE_DATA = FortranValidationData.from_pickle(parent_dir / "two_state_data.
 TWO_STATE_STATICS = {
     "mode_basis_sets": [20, 50],
 }
+
+if __name__ == "__main__":
+    for params, ydata in TWO_STATE_DATA.params_to_ydata():
+        print(params)
+        print(ydata)
+        print("\n")
