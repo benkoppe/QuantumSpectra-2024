@@ -34,13 +34,13 @@ from quantumspectra_2024.common.hamiltonian.HamiltonianModel import HamiltonianM
 # plt.plot(spectrum.energies, spectrum.intensities)
 # plt.show()
 
-jax.config.update("jax_platform_name", "cpu")
+jax.config.update("jax_platform_name", "gpu")
 # jax.config.update("jax_enable_x64", True)
 
 
 def time_two_state():
     t = TwoStateModel(
-        temperature_kelvin=0,
+        temperature_kelvin=random.choice([0.0, 300.0]),
         broadening=200,
         transfer_integral=random.randint(90, 110),
         energy_gap=8_000.0,
@@ -51,21 +51,11 @@ def time_two_state():
 
     start = time.time()
 
-    hamiltonian = t.get_hamiltonian()
-
-    diag = hamiltonian.get_diagonalization()
-
-    eigenvalues, eigenvectors = diag
-
-    peaks = compute_peaks(
-        eigenvalues, eigenvectors, t.transfer_integral, t.temperature_kelvin
-    )
+    t.get_absorption()
 
     end = time.time()
 
-    print(end - start)
-
-    # return end - start, matrix
+    return end - start
 
 
 def time_matrix():
@@ -91,7 +81,7 @@ N = 10
 runtimes = []
 
 for _ in range(N):
-    runtime = time_matrix()
+    runtime = time_two_state()
     print(runtime)
     runtimes.append(runtime)
 
